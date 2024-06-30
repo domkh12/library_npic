@@ -13,6 +13,17 @@ return new class extends Migration
     {
         Schema::create('student', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('email')->nullable();
+            $table->string('phone');
+            $table->string('address')->nullable();
+            // gender forienkey from gender table
+            $table->unsignedBigInteger('gender_id')->nullable();
+            $table->foreign('gender_id')->references('id')->on('gender');            
+            $table->string('dob')->nullable();
+            $table->string('image')->nullable();
+            $table->string('password');
+            $table->string('status')->default('active');                        
             $table->timestamps();
         });
     }
