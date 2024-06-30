@@ -44,3 +44,19 @@ Route::put("/book/{bookId}", [BookController::class, 'update'])->name('book.upda
 Route::delete("/book/{bookId}", [BookController::class, 'destroy'])->name('book.delete');
 
 Route::get('/book/{cateId}', [BookController::class, 'show'])->name("book.show");
+
+use App\Http\Controllers\StudentController;
+
+Route::get('/student', [StudentController::class, 'index'])->name("student.list");
+
+Route::get('/student/create', [StudentController::class, 'create'])->name("student.create");
+
+Route::post('/student', [StudentController::class, 'store'])->name("student.store");
+
+Route::get("/student/{studentId}/edit", [StudentController::class, 'edit'])->name('student.edit');
+
+Route::put("/student/{studentId}", [StudentController::class, 'update'])->name('student.update');
+
+Route::delete("/student/{studentId}", [StudentController::class, 'destroy'])->name('student.delete');
+
+Route::get('/student/{cateId}', [StudentController::class, 'show'])->name("student.show");
