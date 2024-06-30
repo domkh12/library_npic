@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('book_description')->nullable();
             $table->string('book_category');
             // photo
+            // subject and category are foreign keys
+            
             $table->string('book_photo')->nullable();
             $table->string('book_quantity');
             $table->string('book_subject');
