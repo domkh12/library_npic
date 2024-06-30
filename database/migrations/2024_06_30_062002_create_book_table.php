@@ -22,11 +22,12 @@ return new class extends Migration
             
             // photo
             // subject and category are foreign keys
-            $table->unsignedBigInteger('cate_id');   
-            $table->foreign('cate_id')->references('id')->on('category');
-            $table->unsignedBigInteger('subject_id');   
-            $table->foreign('subject_id')->references('id')->on('subject');
-            $table->string('book_photo')->nullable();
+            $table->string('categoty_name');   
+            $table->string('subject_name');   
+            // $table->foreign('cate_id')->references('id')->on('category');
+            // $table->unsignedBigInteger('subject_id');   
+            // $table->foreign('subject_id')->references('id')->on('subject');
+            // $table->string('book_photo')->nullable();
             $table->string('book_quantity');
             $table->timestamps();
 
