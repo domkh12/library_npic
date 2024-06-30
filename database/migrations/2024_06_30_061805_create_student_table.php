@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('phone');
             $table->string('address')->nullable();
             // gender forienkey from gender table
-            $table->unsignedBigInteger('stu_id')->nullable();
+            $table->unsignedBigInteger('stu_id');
             $table->foreign('stu_id')->references('id')->on('gender');            
             $table->string('dob')->nullable();
             $table->string('image')->nullable();
