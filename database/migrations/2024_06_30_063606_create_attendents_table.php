@@ -13,16 +13,8 @@ return new class extends Migration
     {
         Schema::create('attendents', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('student_id');   
-            $table->foreign('student_id')->references('id')->on('student');
-            $table->unsignedBigInteger('year_id');
-            $table->foreign('year_id')->references('id')->on('year');
-            $table->unsignedBigInteger('subject_id');
-            $table->foreign('subject_id')->references('id')->on('subject');
-            $table->unsignedBigInteger('payment_id');
-            $table->foreign('payment_id')->references('id')->on('payment');
-            $table->unsignedBigInteger('class_id');
-            $table->foreign('class_id')->references('id')->on('class');
+            $table->unsignedBigInteger('id');   
+            $table->foreign('id')->references('id')->on('student');   
             // time in and time out
             $table->time('time_in');
             $table->time('time_out');
