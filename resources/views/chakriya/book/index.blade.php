@@ -1,6 +1,6 @@
 @extends('layout.backend')
 @section('content')
-<h1>book List</h1>
+<h1>សៀវភៅ</h1>
 <a class="btn btn-primary" href="{{ url('/book/create') }}">New</a>
 @if (count($book) > 0)
 <table class="table table-bordered">
