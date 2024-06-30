@@ -11,8 +11,8 @@ class AttendentController extends Controller
      */
     public function index()
     {
-        $attendent = Attendent::all();
-        return view('kong.attendent.index')->with('attendent', $attendent);
+        $attendents = Attendent::all();
+        return view('kong.attendent.index')->with('attendents', $attendents);
 
     }
 
