@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
+use App\Models\Attendent;
 
 class AttendentController extends Controller
 {
@@ -11,7 +11,9 @@ class AttendentController extends Controller
      */
     public function index()
     {
-        //
+        $attendent = Attendent::all();
+        return view('kong.attendent.index')->with('attendent', $attendent);
+
     }
 
     /**
