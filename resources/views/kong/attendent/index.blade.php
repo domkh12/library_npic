@@ -1,6 +1,6 @@
 @extends('layout.backend')
 @section('content')
-<h1>attendent List</h1>
+<h1>បញ្ចីអវត្ដមានសិស្សចូលអាន​សៀវភៅ</h1>
 <a class="btn btn-primary" href="{{ url('/attendent/create') }}">New</a>
 @if (count($attendents) > 0)
 <table class="table table-bordered">
