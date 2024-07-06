@@ -63,16 +63,16 @@ Route::get('/student/{cateId}', [StudentController::class, 'show'])->name("stude
 
 use App\Http\Controllers\BorrowController;
 
-// Route::get('/borrow', [BorrowController::class, 'index'])->name("borrow.list");
+Route::get('/borrow', [BorrowController::class, 'index'])->name("borrow.list");
 
-// Route::get('/borrow/create', [BorrowController::class, 'create'])->name("borrow.create");
+Route::get('/borrow/create', [BorrowController::class, 'create'])->name("borrow.create");
 
-// Route::post('/borrow', [BorrowController::class, 'store'])->name("borrow.store");
+Route::post('/borrow', [BorrowController::class, 'store'])->name("borrow.store");
 
-// Route::get("/borrow/{borrowId}/edit", [BorrowController::class, 'edit'])->name('borrow.edit');
+Route::get("/borrow/{borrowId}/edit", [BorrowController::class, 'edit'])->name('borrow.edit');
 
-// Route::put("/borrow/{borrowId}", [BorrowController::class, 'update'])->name('borrow.update');
+Route::put("/borrow/{borrowId}", [BorrowController::class, 'update'])->name('borrow.update');
 
-// Route::delete("/borrow/{borrowId}", [BorrowController::class, 'destroy'])->name('borrow.delete');
+Route::delete("/borrow/{borrowId}", [BorrowController::class, 'destroy'])->name('borrow.delete');
 
-// Route::get('/borrow/{cateId}', [BorrowController::class, 'show'])->name("borrow.show");
+Route::get('/borrow/{cateId}', [BorrowController::class, 'show'])->name("borrow.show");
