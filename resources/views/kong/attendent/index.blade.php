@@ -1,42 +1,57 @@
 @extends('layout.backend')
 @section('content')
 <h3>បញ្ចីអវត្ដមានសិស្សចូលអាន​សៀវភៅ</h3>
-<!-- <a class="btn btn-primary" href="{{ url('/attendent/create') }}">New</a> -->
+<a class="btn btn-primary" href="{{ url('/attendent/create') }}">New</a>
 @if (count($attendents) > 0)
 <table class="table table-bordered">
 <thead>
-    <th>ID</th>
-    <th>Name</th>
-    <th>Edit</th>
-    <th>Delete</th>
+    <th>ID សិស្ស</th>
+    <th>ឈ្មោះ</th>  
+    <th>ជំនាញ</th>
+    <th>កាលបរិច្ឆេទ</th>
+    <th>ម៉ោងចូល</th>
+    <th>ម៉ោងចេញ</th>
+    <th>រយះពេល</th>
+    <th>ស្ថានភាព</th>
+    
 </thead>
 <tbody>
-    @foreach ($attendent as $attendent)
-    
-                <tr>
-                    <td>
-                        <div>{!! $$attendent->name !!}</div>
-                    </td>
-                    <td>
-                        <div>{!! $$attendent->description !!}</div>
-                    </td>
-                    <td>
-                        <div>{!! Html::img('img/'.$$attendent->image, $$attendent->name, array('width'=>'60')) !!}</div>
-                    </td>
-                    <td>
-                        <div>{!! $$attendent->price !!}</div>
-                    </td>
-
-                    <td><a class="btn btn-primary" href="{!! url('$attendent/' . $$attendent->id . '/edit') !!}">Edit</a></td>
-
-                    <td>
-                        {{ Html::form('DELETE','$attendent/'. $$attendent->id)->open()}}
-                        <button class="btn btn-danger delete">Delete</button>
-                        {{ Html::form()->close() }}
-                    </td>
-                </tr>
-               
-    @endforeach   
+    @foreach ($attendents as $attendent)
+    <tr>
+        <td>
+            {!! $attendent->id !!}
+        </td>
+        
+        <td>
+            {!! $attendent->stu_id !!}
+        </td>
+         
+        <td>
+            {!! $attendent->time_in !!}
+        </td>
+         
+        <td>
+            {!! $attendent->time_out !!}
+        </td>
+         
+        <td>
+            {!! $attendent->date !!}
+        </td>
+         
+        <td>
+            {!! $attendent->status!!}
+        </td>
+                
+        <td class="d-flex">
+            <a class="btn btn-primary" href="{!! url('/attendent/' . $attendent->id . '/edit') !!}">Edit</a>
+                <form method="POST" action="{{ url('attendent/' . $attendent->id)}}" class="delete-form">
+                @csrf
+                @method('DELETE')
+                <button type="button" class="btn btn-danger delete">Delete</button>
+                </form>
+        </td>
+    </tr>
+    @endforeach
 </tbody>
 </table>
 @endif
