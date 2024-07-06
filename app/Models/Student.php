@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Student extends Model
 {
     use HasFactory;
-    protected $table = 'students';
+    protected $table = 'student';
     protected $fillable = [
         'name',
         'email',
@@ -20,4 +20,8 @@ class Student extends Model
         'password',
         'status'
     ];
+    public function gender()
+{
+    return $this->belongsTo(Gender::class, 'gen_id');
+}
 }
