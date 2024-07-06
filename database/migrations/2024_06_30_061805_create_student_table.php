@@ -21,8 +21,8 @@ return new class extends Migration
             $table->string('faculty')->nullable();
             $table->string('major')->nullable();
             $table->string('borrow_qty')->nullable();
-            // $table->unsignedBigInteger('yerear_id');
-            // $table->foreign('yerear_id')->references('id')->on('year');
+            // $table->biginteger('years_id')->unsigned();
+            // $table->foreign('years_id')->references('id')->on('year');
             $table->string('status')->default('active');                                        
             $table->timestamps();
         });
