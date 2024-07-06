@@ -13,12 +13,11 @@ class Student extends Model
         'name',
         'email',
         'phone',
-        'address',
-        'gen_id',
         'dob',
-        'image',
-        'password',
-        'status'
+        'year',
+        'faculty',
+        'brrow_qty',
+        'status',        
     ];
     public function gender()
 {

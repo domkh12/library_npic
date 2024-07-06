@@ -26,13 +26,16 @@
             {!! $student->phone !!}
         </td>
         <td>
-            {!! $student->gen_id !!}
+            {!! $student->faculty !!}
         </td>
         <td>
-            {!! $student->dob !!}
+            {!! $student->year !!}
         </td>
-        <td><a class="btn btn-primary" href="{!! url('/student/' . $student->id . '/edit') !!}">Edit</a></td>
         <td>
+            {!! $student->borrow_qty !!}
+        </td>        
+        <td class="d-flex">
+            <a class="btn btn-primary" href="{!! url('/student/' . $student->id . '/edit') !!}">Edit</a>
                 <form method="POST" action="{{ url('student/' . $student->id)}}" class="delete-form">
                 @csrf
                 @method('DELETE')

@@ -16,14 +16,12 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->nullable();
             $table->string('phone');
-            $table->string('address')->nullable();
-            // gender forienkey from gender table
-            $table->unsignedBigInteger('gen_id');
-            $table->foreign('gen_id')->references('id')->on('gender');            
             $table->string('dob')->nullable();
-            $table->string('image')->nullable();
-            $table->string('password');
-            $table->string('status')->default('active');                        
+            $table->string('year')->nullable();
+            $table->string('faculty')->nullable();
+            $table->string('major')->nullable();
+            $table->string('borrow_qty')->nullable();            
+            $table->string('status')->default('active');                                        
             $table->timestamps();
         });
     }
