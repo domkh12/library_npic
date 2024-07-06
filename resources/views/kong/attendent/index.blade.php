@@ -1,7 +1,7 @@
 @extends('layout.backend')
 @section('content')
-<h1>បញ្ចីអវត្ដមានសិស្សចូលអាន​សៀវភៅ</h1>
-<a class="btn btn-primary" href="{{ url('/attendent/create') }}">New</a>
+<h3>បញ្ចីអវត្ដមានសិស្សចូលអាន​សៀវភៅ</h3>
+<!-- <a class="btn btn-primary" href="{{ url('/attendent/create') }}">New</a> -->
 @if (count($attendents) > 0)
 <table class="table table-bordered">
 <thead>
@@ -11,24 +11,32 @@
     <th>Delete</th>
 </thead>
 <tbody>
-    @foreach ($attendents as $attendent)
-    <tr>
-        <td>
-            {!! $attendent->id !!}
-        </td>
-        <td>
-        <a href="{{ url('/attendent/' . $attendent->id) }}">{!! $attendent->name !!}</a>
-        </td>
-        <td><a class="btn btn-primary" href="{!! url('/attendent/' . $attendent->id . '/edit') !!}">Edit</a></td>
-        <td>
-                <form method="POST" action="{{ url('attendent/' . $attendent->id)}}" class="delete-form">
-                @csrf
-                @method('DELETE')
-                <button type="button" class="btn btn-danger delete">Delete</button>
-                </form>
-        </td>
-    </tr>
-    @endforeach
+    @foreach ($attendent as $attendent)
+    
+                <tr>
+                    <td>
+                        <div>{!! $$attendent->name !!}</div>
+                    </td>
+                    <td>
+                        <div>{!! $$attendent->description !!}</div>
+                    </td>
+                    <td>
+                        <div>{!! Html::img('img/'.$$attendent->image, $$attendent->name, array('width'=>'60')) !!}</div>
+                    </td>
+                    <td>
+                        <div>{!! $$attendent->price !!}</div>
+                    </td>
+
+                    <td><a class="btn btn-primary" href="{!! url('$attendent/' . $$attendent->id . '/edit') !!}">Edit</a></td>
+
+                    <td>
+                        {{ Html::form('DELETE','$attendent/'. $$attendent->id)->open()}}
+                        <button class="btn btn-danger delete">Delete</button>
+                        {{ Html::form()->close() }}
+                    </td>
+                </tr>
+               
+    @endforeach   
 </tbody>
 </table>
 @endif
