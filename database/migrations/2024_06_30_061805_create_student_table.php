@@ -16,11 +16,13 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->nullable();
             $table->string('phone');
-            $table->string('dob')->nullable();
+            $table->string('dob')->nullable();            
             $table->string('year')->nullable();
             $table->string('faculty')->nullable();
             $table->string('major')->nullable();
-            $table->string('borrow_qty')->nullable();            
+            $table->string('borrow_qty')->nullable();
+            // $table->unsignedBigInteger('yerear_id');
+            // $table->foreign('yerear_id')->references('id')->on('year');
             $table->string('status')->default('active');                                        
             $table->timestamps();
         });
