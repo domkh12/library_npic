@@ -22,7 +22,13 @@ return new class extends Migration
             $table->string('borrow_qty')->nullable();            
             $table->string('status')->default('active'); 
             $table->unsignedBigInteger('year_id');
-            $table->foreign('year_id')->references('id')->on('year');                                      
+            $table->foreign('year_id')->references('id')->on('year'); 
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('user');  
+            $table->unsignedBigInteger('major_id');
+            $table->foreign('major_id')->references('id')->on('major');
+            $table->unsignedBigInteger('fac_id');
+            $table->foreign('fac_id')->references('id')->on('faculty');                                      
             $table->timestamps();
         });
     }
