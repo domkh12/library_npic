@@ -1,8 +1,8 @@
 @extends('layout.backend')
 @section('content')
 <h3>តារាងសៀវភៅ</h3>
-<a class="btn btn-primary" href="{{ url('/book/create') }}">បញ្ចូលសៀវភៅ/a>
-@if (count($book) > 0)
+<a class="btn btn-primary" href="{{ url('/book/create') }}">បញ្ចូលសៀវភៅ</a>
+@if (count($books) > 0)
 <table class="table table-bordered">
 <thead>
     <th>ចំណងជើងសៀភៅ</th>
@@ -11,6 +11,7 @@
     <th>លេខ​ ISBN</th>
     <th>អ្នកនិពន្ធ</th>
     <th>មុខវិជ្ជា</th>
+    <th>ប្រភេទសៀវភៅ</th>
     <th>ចំនួន</th>
     <th>តម្លៃ</th>
     <th>កាលបរិច្ឆេទ</th>
@@ -18,45 +19,49 @@
 </thead>
 
 <tbody>
-    @foreach ($book as $book)
+    @foreach ($books as $book)
     <tr>
         <td>
-            {!! $book->id !!}
-        </td>
-        <td>
-        <a href="{{ url('/book/' . $book->id) }}">{!! $book->name !!}</a>
+            {!! $book->book_name !!}
         </td>
         <td>
             {!! $book->photo !!}
         </td>
         <td>
-            {!! $book->number !!}
+            {!! $book->book_number !!}
         </td>
         <td>
-            {!! $book->ibsn !!}
+            {!! $book->book_isbn !!}
         </td>
         <td>
-            {!! $book->author !!}
+            {!! $book->book_author !!}
         </td>
         <td>
-            {!! $book->subject->subject_name !!}
+            {!! optional($book->subject)->subject_name??'N\A' !!}
         </td>
         <td>
-            {!! $book->quantity !!}
+            {!! optional($book->category)->category_name??'N\A' !!}
         </td>
         <td>
-            {!! $book->price !!}
+            {!! $book->book_quantity !!}
         </td>
         <td>
-            {!! $book->date_update!!}
+            {!! $book->book_price !!}
+        </td>
+        <td>
+            {!! $book->book_date_update!!}
         </td>  
-        <td>
-            {!! $book->description !!}
-        </td> 
-        <td>
-            {!! $book->publisher !!}
-        </td> 
-
+        <td class=" d-flex">
+        <a class="btn btn-primary" href="{!! url('/book/' . $book->id . '/edit') !!}">Edit</a> 
+                <form method="POST" action="{{ url('book/' . $book->id)}}" class="delete-form">
+                @csrf
+                @method('DELETE')
+                <button type="button" class="btn btn-danger delete">delete</button>
+                </form>
+            {!! $book->book_description !!}
+        </td>  
+        
+    </tr>
     </tr>
     @endforeach
 </tbody>

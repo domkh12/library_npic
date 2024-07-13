@@ -16,14 +16,20 @@ class Book extends Model
         'isbn',
         'author',
         'subject_name',
+        'category_name',
         'book_quantity',
         'price',
         'description',
-        'category_name',
-        'publisher',
-    
+        
         
     ];
-
+    public function subject()
+    {
+        return $this->belongsTo(Subject::class, 'subject_id','id');
+    }
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id','id');
+    }
 
 }

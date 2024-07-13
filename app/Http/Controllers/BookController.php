@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Session;
 use App\Models\Book;
 use Illuminate\Http\Request;
 
@@ -13,7 +13,7 @@ class BookController extends Controller
     public function index()
     {
         $books = Book::all();
-        return view('chakriya.book.index')->with('book', $books);
+        return view('chakriya.book.index')->with('books', $books);
 
 
     }
@@ -23,7 +23,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        return view('chakriya.book.create');
     }
 
     /**
@@ -31,7 +31,17 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:255',
+            'description' => 'required|max:255',
+        ]);
+        // Create The book
+        $book = new book;
+        $book->name = $request->name;
+        $book->description = $request->description;
+        $book->save();
+        Session::flash('book_create','book is created.');
+        return redirect('/book/create');
     }
 
     /**
