@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+
 use App\Models\attendent\Attend;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -8,9 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 class Attendent extends Model
 {
     use HasFactory;
-    protected $table ='attendents';
-    protected $fillable =[
-        
+    protected $table = 'attendents';
+    protected $fillable = [
         'name',
         'gender',
         'faculty',
@@ -22,7 +22,7 @@ class Attendent extends Model
 
     public function student()
     {
-        return $this->belongsTo(Student::class,'stu_id','');	
+        return $this->belongsTo(Student::class, 'stu_id', '');
     }
     public function gender()
     {
@@ -30,7 +30,6 @@ class Attendent extends Model
     }
     public function faculty()
     {
-        return $this->belongsTo(Faculty::class,'fact_id','id');
+        return $this->belongsTo(Faculty::class, 'fact_id', 'id');
     }
-
 }
