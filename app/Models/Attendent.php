@@ -22,7 +22,7 @@ class Attendent extends Model
 
     public function student()
     {
-        return $this->belongsTo(Student::class);
+        return $this->belongsTo(Student::class,'stu_id','');	
     }
     public function gender()
     {
@@ -30,7 +30,7 @@ class Attendent extends Model
     }
     public function faculty()
     {
-        return $this->belongsTo(Faculty::class);
+        return $this->belongsTo(Faculty::class,'fact_id','id');
     }
 
 }

@@ -1,7 +1,18 @@
 @extends('layout.backend')
 @section('content')
+<style>
+    .txt-search{
+        border: 3px;
+        width: 300px;
+        margin:0,20px;
+    }
+</style>
 <h3>បញ្ចីអវត្ដមានសិស្សចូលអាន​សៀវភៅ</h3>
-<a class="btn btn-primary" href="{{ url('/attendent/index') }}">New</a>
+<form class="example txt-search" action="action_page.php" >
+  <input type="text" placeholder="Search.." name="search">
+  <button type="submit"><i class="fa fa-search"></i></button>
+</form>
+<!-- <a class="btn btn-primary" href="{{ url('/attendent/index') }}">New</a> -->
 @if (count($attendents) > 0)
 <table class="table table-bordered">
 <thead>
@@ -20,16 +31,16 @@
     @foreach ($attendents as $attendent)
     <tr>
         <td>
-            {!! $attendent->id !!}
+            {!! $attendent->student->stu_id !!}
         </td> 
         <td>
-            {!! optional($attendent->student)->student_name ??'N\A'!!}
+            {!!$attendent->student->name!!}
         </td> 
          <td>
             {!! optional($attendent->gender)->gender_kh??'N\A' !!}
         </td>
          <td>
-            {!! optional($attendent->faculty)->faculty_name??'N\A'!!}
+            {!! $attendent->faculty->fac_name!!}
         </td>
         <td>
             {!! $attendent->time_in !!}
@@ -47,11 +58,11 @@
         </td>
                 
         <td class="d-flex">
-            <a class="btn btn-primary" href="{!! url('/attendent/' . $attendent->id . '/edit') !!}">Edit</a>
+            <!-- <a class="btn btn-primary" href="{!! url('/attendent/' . $attendent->id . '/edit') !!}">Edit</a> -->
                 <form method="POST" action="{{ url('attendent/' . $attendent->id)}}" class="delete-form">
                 @csrf
                 @method('DELETE')
-                <button type="button" class="btn btn-danger delete">Delete</button>
+                <button type="button" class="btn btn-danger delete">បានចាកចេញ</button>
                 </form>
         </td>
     </tr>
