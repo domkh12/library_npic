@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('attendents', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->biginteger('gender')->unsigned();
+            $table->biginteger('gender_id')->unsigned();
             $table->foreign('gender_id')->references('id')->on('gender');
             $table->time('time_in');
             $table->time('time_out');

@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('book_name');
             $table->string('book_photo')->nullable();
+            $table->string('book_number');
             $table->string('book_isbn');
             $table->string('book_author');
-            $table->string('book_publisher')->nullable();
+            //$table->string('book_publisher')->nullable();
             $table->string('book_quantity');
             $table->string('book_price');
             $table->date('book_date_update')->nullable();
