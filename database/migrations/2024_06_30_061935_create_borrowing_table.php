@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('borrow_date');
             $table->date('return_date')->nullable();
             $table->date('deadline_date');
+            
             // forein key with borrowdeatils
             $table->unsignedBigInteger('bd_id');
             $table->foreign('bd_id')->references('id')->on('borrowdeatils');
