@@ -19,7 +19,6 @@
         <td>
         <a href="{{ url('/book/' . $book->id) }}">{!! $book->name !!}</a>
         </td>
-        <td><a class="btn btn-primary" href="{!! url('/book/' . $book->id . '/edit') !!}">Edit</a></td>
         <td>
                 <form method="POST" action="{{ url('book/' . $book->id)}}" class="delete-form">
                 @csrf
