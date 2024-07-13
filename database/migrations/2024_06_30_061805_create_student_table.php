@@ -30,9 +30,9 @@ return new class extends Migration
             $table->unsignedBigInteger('fac_id');
             $table->foreign('fac_id')->references('id')->on('faculty');                                      
             $table->timestamps();
-        });
+        });        
     }
-
+   
     /**
      * Reverse the migrations.
      */

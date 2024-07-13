@@ -14,13 +14,27 @@ class Student extends Model
         'email',
         'phone',
         'dob',
-        'year',
-        'faculty',
         'brrow_qty',
-        'status',        
+        'status',
     ];
+    public function year()
+    {
+        return $this->belongsTo(Year::class);
+    }
     public function gender()
-{
-    return $this->belongsTo(Gender::class, 'gen_id');
-}
+    {
+        return $this->belongsTo(Gender::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    public function major()
+    {
+        return $this->belongsTo(Major::class);
+    }
+    public function faculty()
+    {
+        return $this->belongsTo(Faculty::class);
+    }
 }
