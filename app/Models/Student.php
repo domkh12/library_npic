@@ -8,16 +8,33 @@ use Illuminate\Database\Eloquent\Model;
 class Student extends Model
 {
     use HasFactory;
-    protected $table = 'students';
+    protected $table = 'student';
     protected $fillable = [
         'name',
         'email',
         'phone',
-        'address',
-        'gen_id',
         'dob',
-        'image',
-        'password',
-        'status'
+        'brrow_qty',
+        'status',
     ];
+    public function year()
+    {
+        return $this->belongsTo(Year::class);
+    }
+    public function gender()
+    {
+        return $this->belongsTo(Gender::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    public function major()
+    {
+        return $this->belongsTo(Major::class);
+    }
+    public function faculty()
+    {
+        return $this->belongsTo(Faculty::class);
+    }
 }

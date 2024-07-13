@@ -2,19 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Student;
 
-class StudentController extends Controller
+class BorrowController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $students = Student::all();
-        return view('eichanudom.students.index')->with('students', $students);        
+        //
     }
 
     /**

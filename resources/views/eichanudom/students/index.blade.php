@@ -1,17 +1,20 @@
 @extends('layout.backend')
 @section('content')
-<h1>student List</h1>
+<h1>តារាងសិស្ស</h1>
 <a class="btn btn-primary" href="{{ url('/student/create') }}">New</a>
-@if (count($categories) > 0)
+@if (count($students) > 0)
 <table class="table table-bordered">
 <thead>
-    <th>ID</th>
-    <th>Name</th>
-    <th>Edit</th>
-    <th>Delete</th>
+    <th>ID សិស្ស</th>
+    <th>ឈ្មោះ</th>
+    <th>លេខទូរស័ព្ទ</th>
+    <th>ជំនាញ</th>
+    <th>ឆ្នាំ</th>
+    <th>ចំនួនខ្ចីសៀវភៅ</th>
+    <th>ប្រតិបត្តិការ</th>
 </thead>
 <tbody>
-    @foreach ($categories as $student)
+    @foreach ($students as $student)
     <tr>
         <td>
             {!! $student->id !!}
@@ -19,8 +22,20 @@
         <td>
         <a href="{{ url('/student/' . $student->id) }}">{!! $student->name !!}</a>
         </td>
-        <td><a class="btn btn-primary" href="{!! url('/student/' . $student->id . '/edit') !!}">Edit</a></td>
         <td>
+            {!! $student->phone !!}
+        </td>
+        <td>
+            {!! $student->faculty !!}
+        </td>
+        <td>
+            {!! $student->year->year_name !!}
+        </td>
+        <td>
+            {!! $student->borrow_qty !!}
+        </td>        
+        <td class="d-flex">
+            <a class="btn btn-primary" href="{!! url('/student/' . $student->id . '/edit') !!}">Edit</a>
                 <form method="POST" action="{{ url('student/' . $student->id)}}" class="delete-form">
                 @csrf
                 @method('DELETE')

@@ -16,18 +16,23 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->nullable();
             $table->string('phone');
-            $table->string('address')->nullable();
-            // gender forienkey from gender table
-            $table->unsignedBigInteger('gen_id');
-            $table->foreign('gen_id')->references('id')->on('gender');            
-            $table->string('dob')->nullable();
-            $table->string('image')->nullable();
-            $table->string('password');
-            $table->string('status')->default('active');                        
+            $table->string('dob')->nullable();  
+            $table->string('faculty')->nullable();
+            $table->string('major')->nullable();
+            $table->string('borrow_qty')->nullable();            
+            $table->string('status')->default('active'); 
+            $table->unsignedBigInteger('year_id');
+            $table->foreign('year_id')->references('id')->on('year'); 
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('user');  
+            $table->unsignedBigInteger('major_id');
+            $table->foreign('major_id')->references('id')->on('major');
+            $table->unsignedBigInteger('fac_id');
+            $table->foreign('fac_id')->references('id')->on('faculty');                                      
             $table->timestamps();
-        });
+        });        
     }
-
+   
     /**
      * Reverse the migrations.
      */

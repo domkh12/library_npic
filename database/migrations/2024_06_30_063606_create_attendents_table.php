@@ -13,14 +13,15 @@ return new class extends Migration
     {
         Schema::create('attendents', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('stu_id');   
-            $table->foreign('stu_id')->references('id')->on('student');   
-            // time in and time out
+            $table->string('name');
+            // $table->biginteger('gender')->unsigned();
+            // $table->foreign('gender_id')->references('id')->on('gender');
             $table->time('time_in');
             $table->time('time_out');
             $table->date('date');
             $table->string('status');
             $table->timestamps();
+            
         });
     }
 
