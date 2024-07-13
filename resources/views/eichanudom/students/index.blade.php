@@ -26,7 +26,7 @@
             {!! $student->phone !!}
         </td> 
         <td>
-            {!! $student->year_id !!}
+            {!! $student->faculty->fac_name !!}
         </td>           
         <td>
             {!! optional($student->year)->year_name ?? 'N/A' !!}

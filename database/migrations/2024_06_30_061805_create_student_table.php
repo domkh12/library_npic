@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('stu_id')->nullable();
             $table->string('name')->nullable();
             $table->string('phone')->nullable(); 
-            $table->string('borrow_qty')->nullable();            
+            $table->integer('borrow_qty')->default(0);           
             $table->string('status')->default('active'); 
             $table->unsignedBigInteger('year_id');
             $table->foreign('year_id')->references('id')->on('year'); 

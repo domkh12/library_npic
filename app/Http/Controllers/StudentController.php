@@ -42,7 +42,7 @@ class StudentController extends Controller
             'phone' => 'required|string|max:20',
             'year_id' => 'required|exists:year,id',
             'fac_id' => 'required|exists:faculty,id',
-           
+            'borrow_qty' => 'nullable|integer|default:0',
         ]);
 
         Student::create($validatedData);

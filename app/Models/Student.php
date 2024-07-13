@@ -14,13 +14,15 @@ class Student extends Model
         'name',
         'phone',
         'year_id',
-        'fac_id'
+        'fac_id',
+        'borrow_qty'
     ];
     public function year()
     {
         return $this->belongsTo(Year::class);
     }
-    public function faculty() {
-        return $this->belongsTo(Faculty::class);
-    }  
+    public function faculty()
+    {
+        return $this->belongsTo(Faculty::class, 'fac_id', 'id'); // fac_id
+    }
 }

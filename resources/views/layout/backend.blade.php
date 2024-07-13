@@ -43,11 +43,11 @@
                     <div class=" sb-sidenav-menu border-top-0 border border-right">
                         <div class=" my-sidenav">
                             
-                            <a class="text-dark d-flex" href="#">
+                            <a class="text-dark d-flex">
                                 <div class="sb-text-dark-icon"><i class="fa-solid fa-calendar-check"></i></div>
                                 វត្តមានសិស្ស
                             </a>  
-                            <a class="text-dark d-flex" href="#">
+                            <a class="text-dark d-flex" >
                                 <div class="sb-text-dark-icon"><i class="fa-solid fa-user-graduate"></i></div>
                                 គ្រប់គ្រងសិស្ស
                             </a>  
