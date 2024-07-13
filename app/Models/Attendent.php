@@ -13,10 +13,24 @@ class Attendent extends Model
         
         'name',
         'gender',
+        'faculty',
         'time_in',
         'time_out',
         'date',
         'status',
     ];
+
+    public function student()
+    {
+        return $this->belongsTo(Student::class);
+    }
+    public function gender()
+    {
+        return $this->belongsTo(Gender::class);
+    }
+    public function faculty()
+    {
+        return $this->belongsTo(Faculty::class);
+    }
 
 }

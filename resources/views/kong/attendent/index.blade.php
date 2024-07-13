@@ -21,16 +21,19 @@
     <tr>
         <td>
             {!! $attendent->id !!}
-        </td>
-        
+        </td> 
         <td>
-            {!! $attendent->stu_id !!}
+            {!! optional($attendent->student)->student_name ??'N\A'!!}
+        </td> 
+         <td>
+            {!! optional($attendent->gender)->gender_kh??'N\A' !!}
         </td>
-         
+         <td>
+            {!! optional($attendent->faculty)->faculty_name??'N\A'!!}
+        </td>
         <td>
             {!! $attendent->time_in !!}
         </td>
-         
         <td>
             {!! $attendent->time_out !!}
         </td>
