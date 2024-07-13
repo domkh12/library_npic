@@ -29,7 +29,7 @@
             {!! $student->faculty !!}
         </td>
         <td>
-            {!! $student->year !!}
+            {!! $student->year->year_name !!}
         </td>
         <td>
             {!! $student->borrow_qty !!}
