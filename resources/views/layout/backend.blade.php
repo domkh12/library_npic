@@ -43,19 +43,19 @@
                     <div class=" sb-sidenav-menu border-top-0 border border-right">
                         <div class=" my-sidenav">
                             
-                            <a class="text-dark d-flex">
+                            <a class="text-dark d-flex" href="attendent">
                                 <div class="sb-text-dark-icon"><i class="fa-solid fa-calendar-check"></i></div>
                                 វត្តមានសិស្ស
                             </a>  
-                            <a class="text-dark d-flex" >
+                            <a class="text-dark d-flex" href="student" >
                                 <div class="sb-text-dark-icon"><i class="fa-solid fa-user-graduate"></i></div>
                                 គ្រប់គ្រងសិស្ស
                             </a>  
-                            <a class="text-dark d-flex" href="#">
+                            <a class="text-dark d-flex" href="book">
                                 <div class="sb-text-dark-icon"><i class="fa-solid fa-book"></i></div>
                                 គ្រប់គ្រងសៀវភៅ
                             </a>  
-                            <a class="text-dark d-flex" href="#">
+                            <a class="text-dark d-flex" href="borrow">
                                 <div class="sb-text-dark-icon"><i class="fa-solid fa-right-left"></i></div>
                                 គ្រប់គ្រងការខ្ចីសៀវភៅ
                             </a>  

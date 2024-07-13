@@ -80,6 +80,9 @@ class StudentController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $student = Student::find($id);
+        $student->delete();
+        Session::flash('student_delete', 'student is deleted.');
+        return redirect('student');
     }
 }
