@@ -10,31 +10,17 @@ class Student extends Model
     use HasFactory;
     protected $table = 'student';
     protected $fillable = [
+        'stu_id',
         'name',
-        'email',
         'phone',
-        'dob',
-        'brrow_qty',
-        'status',
+        'year_id',
+        'fac_id'
     ];
     public function year()
     {
         return $this->belongsTo(Year::class);
     }
-    public function gender()
-    {
-        return $this->belongsTo(Gender::class);
-    }
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-    public function major()
-    {
-        return $this->belongsTo(Major::class);
-    }
-    public function faculty()
-    {
+    public function faculty() {
         return $this->belongsTo(Faculty::class);
-    }
+    }  
 }

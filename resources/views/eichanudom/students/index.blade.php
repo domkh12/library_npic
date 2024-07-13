@@ -24,12 +24,12 @@
         </td>
         <td>
             {!! $student->phone !!}
-        </td>
+        </td> 
         <td>
-            {!! $student->faculty !!}
-        </td>
+            {!! $student->year_id !!}
+        </td>           
         <td>
-            {!! $student->year->year_name !!}
+            {!! optional($student->year)->year_name ?? 'N/A' !!}
         </td>
         <td>
             {!! $student->borrow_qty !!}

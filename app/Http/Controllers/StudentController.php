@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Faculty;
 use Illuminate\Http\Request;
 use App\Models\Student;
+use App\Models\Year;
+use Illuminate\Support\Facades\Session;
 
 class StudentController extends Controller
 {
@@ -14,7 +17,7 @@ class StudentController extends Controller
     public function index()
     {
         $students = Student::all();
-        return view('eichanudom.students.index')->with('students', $students);        
+        return view('eichanudom.students.index')->with('students', $students);
     }
 
     /**
@@ -22,7 +25,10 @@ class StudentController extends Controller
      */
     public function create()
     {
-        //
+        $years = Year::all();
+        $faculty = Faculty::all();
+
+        return view('eichanudom.students.create', compact('years', 'faculty'));
     }
 
     /**
@@ -30,7 +36,19 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'stu_id' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
+            'phone' => 'required|string|max:20',
+            'year_id' => 'required|exists:year,id',
+            'fac_id' => 'required|exists:faculty,id',
+           
+        ]);
+
+        Student::create($validatedData);
+
+        Session::flash('student_create', 'Student is created.');
+        return redirect()->route('student.index');
     }
 
     /**

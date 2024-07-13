@@ -8,8 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Borrow extends Model
 {
     use HasFactory;
-    protected $table = 'borrow';
+    protected $table = 'borrowing';
     protected $fillable = [
-        'name',
+        'id',
+        'borrow_date',
+        'return_date',
+        'deadline_date',
+        'bd_id',
+        
     ];
 }

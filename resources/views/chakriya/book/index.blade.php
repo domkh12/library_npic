@@ -27,20 +27,35 @@
         <a href="{{ url('/book/' . $book->id) }}">{!! $book->name !!}</a>
         </td>
         <td>
-            {!! $book->author !!}
+            {!! $book->photo !!}
         </td>
         <td>
-            {!! $book->publisher !!}
+            {!! $book->number !!}
         </td>
         <td>
             {!! $book->ibsn !!}
         </td>
         <td>
+            {!! $book->author !!}
+        </td>
+        <td>
+            {!! $book->subject->subject_name !!}
+        </td>
+        <td>
+            {!! $book->quantity !!}
+        </td>
+        <td>
             {!! $book->price !!}
+        </td>
+        <td>
+            {!! $book->date_update!!}
         </td>  
         <td>
             {!! $book->description !!}
-        </td>  
+        </td> 
+        <td>
+            {!! $book->publisher !!}
+        </td> 
 
     </tr>
     @endforeach
