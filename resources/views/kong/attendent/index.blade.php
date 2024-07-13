@@ -1,14 +1,20 @@
 @extends('layout.backend')
 @section('content')
-<h1>បញ្ចីអវត្ដមានសិស្សចូលអាន​សៀវភៅ</h1>
-<a class="btn btn-primary" href="{{ url('/attendent/create') }}">New</a>
+<h3>បញ្ចីអវត្ដមានសិស្សចូលអាន​សៀវភៅ</h3>
+<a class="btn btn-primary" href="{{ url('/attendent/index') }}">New</a>
 @if (count($attendents) > 0)
 <table class="table table-bordered">
 <thead>
-    <th>ID</th>
-    <th>Name</th>
-    <th>Edit</th>
-    <th>Delete</th>
+    <th>ID សិស្ស</th>
+    <th>ឈ្មោះ</th>  
+    <th>ភេទ</th>
+    <th>ជំនាញ</th>
+    <th>កាលបរិច្ឆេទ</th>
+    <th>ម៉ោងចូល</th>
+    <th>ម៉ោងចេញ</th>
+    <th>រយះពេល</th>
+    <th>ស្ថានភាព</th>
+    
 </thead>
 <tbody>
     @foreach ($attendents as $attendent)
@@ -16,11 +22,29 @@
         <td>
             {!! $attendent->id !!}
         </td>
+        
         <td>
-        <a href="{{ url('/attendent/' . $attendent->id) }}">{!! $attendent->name !!}</a>
+            {!! $attendent->stu_id !!}
         </td>
-        <td><a class="btn btn-primary" href="{!! url('/attendent/' . $attendent->id . '/edit') !!}">Edit</a></td>
+         
         <td>
+            {!! $attendent->time_in !!}
+        </td>
+         
+        <td>
+            {!! $attendent->time_out !!}
+        </td>
+         
+        <td>
+            {!! $attendent->date !!}
+        </td>
+         
+        <td>
+            {!! $attendent->status!!}
+        </td>
+                
+        <td class="d-flex">
+            <a class="btn btn-primary" href="{!! url('/attendent/' . $attendent->id . '/edit') !!}">Edit</a>
                 <form method="POST" action="{{ url('attendent/' . $attendent->id)}}" class="delete-form">
                 @csrf
                 @method('DELETE')
