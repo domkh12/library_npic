@@ -5,11 +5,17 @@
         border: 3px;
         width: 300px;
         margin:0,20px;
+        margin-bottom:20px;
+        
+    }
+    .btn-danger{
+         background-color: green;
+        
     }
 </style>
-<h3>បញ្ចីអវត្ដមានសិស្សចូលអាន​សៀវភៅ</h3>
+<h3>បញ្ជីអវត្ដមានសិស្សចូលអាន​សៀវភៅ</h3>
 <form class="example txt-search" action="action_page.php" >
-  <input type="text" placeholder="Search.." name="search">
+  <input class='search-box' type="text" placeholder="Search.." name="search">
   <button type="submit"><i class="fa fa-search"></i></button>
 </form>
 <!-- <a class="btn btn-primary" href="{{ url('/attendent/index') }}">New</a> -->
@@ -62,7 +68,7 @@
                 <form method="POST" action="{{ url('attendent/' . $attendent->id)}}" class="delete-form">
                 @csrf
                 @method('DELETE')
-                <button type="button" class="btn btn-danger delete">បានចាកចេញ</button>
+                <button​​  type="button" class="btn btn-danger delete"​​>បានចាកចេញ</button>
                 </form>
         </td>
     </tr>
