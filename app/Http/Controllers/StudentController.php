@@ -25,11 +25,11 @@ class StudentController extends Controller
 
         if ($search) {
             $query->where('name', 'LIKE', '%' . $search . '%')
-                  ->orWhere('phone', 'LIKE', '%' . $search . '%')
-                  ->orWhere('stu_id', 'LIKE', '%' . $search . '%')
-                  ->orWhereHas('faculty', function($q) use ($search) {
-                      $q->where('fac_name', 'LIKE', '%' . $search . '%');
-                  });
+                ->orWhere('phone', 'LIKE', '%' . $search . '%')
+                ->orWhere('stu_id', 'LIKE', '%' . $search . '%')
+                ->orWhereHas('faculty', function ($q) use ($search) {
+                    $q->where('fac_name', 'LIKE', '%' . $search . '%');
+                });
         }
 
         $students = $query->paginate($perPage);
@@ -75,7 +75,8 @@ class StudentController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $student = Student::find($id);
+        return view('eichanudom.students.show')->with('student', $student);
     }
 
     /**
@@ -128,7 +129,7 @@ class StudentController extends Controller
         Session::flash('student_delete', 'student is deleted.');
         return redirect('student');
     }
-    
+
     public function export()
     {
         $students = Student::all();
@@ -136,7 +137,7 @@ class StudentController extends Controller
         $handle = fopen($filename, 'w+');
 
         // Add BOM to fix UTF-8 in Excel
-        fprintf($handle, chr(0xEF).chr(0xBB).chr(0xBF));
+        fprintf($handle, chr(0xEF) . chr(0xBB) . chr(0xBF));
 
         fputcsv($handle, ['ID សិស្ស', 'ឈ្មោះ', 'លេខទូរស័ព្ទ', 'ជំនាញ', 'ឆ្នាំ', 'ចំនួនខ្ចីសៀវភៅ']);
 

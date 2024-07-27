@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h1>Edit Student</h1>
+<h1>ធ្វើបច្ចុប្បន្នភាពសិស្ស</h1>
 @if (count($errors) > 0)
     <!-- Form Error List -->
     <div class="alert alert-danger">
