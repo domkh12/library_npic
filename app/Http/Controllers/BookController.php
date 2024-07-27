@@ -1,8 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
 use App\Models\Book;
+use App\Models\Category;
+use App\Models\Subject;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -23,7 +26,10 @@ class BookController extends Controller
      */
     public function create()
     {
-        return view('chakriya.book.create');
+        $subjects = Subject::all();
+        $categories = Category::all();
+
+        return view('chakriya.book.create', compact('subjects', 'categories'));
     }
 
     /**
@@ -31,17 +37,26 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|max:255',
-            'description' => 'required|max:255',
-        ]);
-        // Create The book
-        $book = new book;
-        $book->name = $request->name;
-        $book->description = $request->description;
-        $book->save();
-        Session::flash('book_create','book is created.');
-        return redirect('/book/create');
+        $validatedData = $request->validate([
+            'book_name' => 'required|string|max:255',
+            'book_number' => 'required|numeric|min:1',
+            'book_isbn' => 'required|string|max:255',
+            'book_author' => 'required|string|max:255',
+            'subject_id' => 'required|exists:subject,id',
+            'category_id' => 'required|exists:category,id',
+            'book_quantity' => 'nullable|integer|min:0',
+            'book_price' => 'required|numeric|min:0',
+         ]);
+         // Handle file upload
+        //  if ($request->hasFile('photo')) {
+        //  $validatedData['photo'] = $request->file('photo')->store('photos', 'public');
+        // }
+
+         Book::create($validatedData);
+
+         Session::flash('book_create', 'Book is created.');
+         return redirect()->route('book.list');
+
     }
 
     /**
@@ -57,7 +72,8 @@ class BookController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $book = Book::find($id);
+        return view('category.edit')->with('category', $book);
     }
 
     /**
@@ -65,7 +81,25 @@ class BookController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+         $validator = Validator::make($request->all(), [
+			//'name' => 'required|max:20|min:3',
+            'book_name' => 'required|string|max:255',
+            'book_number' => 'required|numeric|min:1'
+            
+		]);
+		if ($validator->fails()) {
+			return redirect('book/' . $id . '/edit')
+            ->withInput()
+            ->withErrors($validator);
+		}
+		// Create The Book
+		$book = Book::find($id);
+		$book->name = $request->Input('book_name');
+        
+		$book->save();
+		Session::flash('book_update','Book is updated.');
+		return redirect('book/' . $id . '/edit');
+
     }
 
     /**
@@ -73,6 +107,10 @@ class BookController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $book = Book::find($id);
+        $book->delete();
+        Session::flash('book_delete', 'book is deleted.');
+        return redirect('book');
     }
+
 }

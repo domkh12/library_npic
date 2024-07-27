@@ -46,7 +46,7 @@
             {!! $book->book_quantity !!}
         </td>
         <td>
-            {!! $book->book_price !!}
+            ${!! $book->book_price !!}
         </td>
         <td>
             {!! $book->book_date_update!!}

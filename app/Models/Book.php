@@ -10,18 +10,14 @@ class Book extends Model
     use HasFactory;
     protected $table = 'book';
     protected $fillable = [
-        'name',
-        'photo',
-        'edition',
-        'isbn',
-        'author',
-        'subject_name',
-        'category_name',
+        'book_name',
+        'book_number',
+        'book_isbn',
+        'book_author',
+        'subject_id',
+        'category_id',
         'book_quantity',
-        'price',
-        'description',
-        
-        
+        'book_price',
     ];
     public function subject()
     {
