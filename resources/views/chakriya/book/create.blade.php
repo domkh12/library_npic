@@ -1,7 +1,7 @@
 @extends('layout.backend')
 
 @section('content')
-    <h1>Create book</h1>
+    <h1>បញ្ចូលសៀវភៅ</h1>
     @if(Session::has('book_create'))
     <div class="alert alert-primary alert-dismissible">
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
@@ -68,6 +68,10 @@
         <div class="form-group">
             <label for="photo">រូបភាព:</label>
             <input type="file" class="form-control" id="photo" name="photo">
+        </div>
+        <div class="form-group">
+            <label for="book_date">កាល​បរិច្ឆេទ:</label>
+            <input type="text" class="form-control" id="book_date" name="book_date">
         </div>
     
         <button type="submit" class="btn btn-primary">រក្សាទុក</button>

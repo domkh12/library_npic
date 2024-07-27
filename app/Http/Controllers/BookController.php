@@ -17,8 +17,6 @@ class BookController extends Controller
     {
         $books = Book::all();
         return view('chakriya.book.index')->with('books', $books);
-
-
     }
 
     /**
@@ -46,6 +44,7 @@ class BookController extends Controller
             'category_id' => 'required|exists:category,id',
             'book_quantity' => 'nullable|integer|min:0',
             'book_price' => 'required|numeric|min:0',
+            
          ]);
          // Handle file upload
         //  if ($request->hasFile('photo')) {
@@ -64,7 +63,8 @@ class BookController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $books = Book::find($id);
+        return view('chakriya.book.show')->with('books', $books);
     }
 
     /**
@@ -73,7 +73,10 @@ class BookController extends Controller
     public function edit(string $id)
     {
         $book = Book::find($id);
-        return view('category.edit')->with('category', $book);
+        $subjects = Subject::all();
+        $categories = Category::all();
+
+        return view('chakriya.book.edit', compact('book', 'subjects', 'categories'));
     }
 
     /**
@@ -82,23 +85,39 @@ class BookController extends Controller
     public function update(Request $request, string $id)
     {
          $validator = Validator::make($request->all(), [
-			//'name' => 'required|max:20|min:3',
             'book_name' => 'required|string|max:255',
-            'book_number' => 'required|numeric|min:1'
+            'book_number' => 'required|numeric|min:1',
+            'book_isbn' => 'required|string|max:255',
+            'book_author' => 'required|string|max:255',
+            'subject_id' => 'required|exists:subject,id',
+            'category_id' => 'required|exists:category,id',
+            'book_quantity' => 'nullable|integer|min:0',
+            'book_price' => 'required|numeric|min:0',
             
 		]);
+
 		if ($validator->fails()) {
-			return redirect('book/' . $id . '/edit')
-            ->withInput()
-            ->withErrors($validator);
+            return redirect()->route('book.edit', ['bookId' => $id])
+                ->withInput()
+                ->withErrors($validator);
 		}
+
 		// Create The Book
 		$book = Book::find($id);
-		$book->name = $request->Input('book_name');
-        
+		$book-> book_name = $request->input('book_name');
+        $book -> book_isbn = $request->input('book_isbn');
+        $book -> book_author = $request->input('book_author');
+        $book-> subject_id = $request->input('subject_id');
+        $book-> category_id = $request->input('category_id');
+        $book-> book_price = $request->input('book_price');
+        $book->book_number = $request->inputnput('book_number');
+        $book->book_author = $request->input('book_author');
+        $book-> book_quantity = $request->input('book_quantity');       
+        //$book->photo = $request->input('photo');       
 		$book->save();
+
 		Session::flash('book_update','Book is updated.');
-		return redirect('book/' . $id . '/edit');
+       return redirect()->route('book.edit', ['bookID' => $id]);
 
     }
 

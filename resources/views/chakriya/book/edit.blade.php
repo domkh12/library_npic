@@ -1,7 +1,7 @@
 @extends('layout.backend')
 
 @section('content')
-    <h1>Edit book</h1>
+    <h1>កែសម្រួលសៀវភៅ</h1>
     @if(Session::has('book_create'))
     <div class="alert alert-primary alert-dismissible">
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
