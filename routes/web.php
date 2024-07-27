@@ -52,7 +52,9 @@ Route::put("/book/{bookId}", [BookController::class, 'update'])->name('book.upda
 
 Route::delete("/book/{bookId}", [BookController::class, 'destroy'])->name('book.delete');
 
-Route::get('/book/{cateId}', [BookController::class, 'show'])->name("book.show");
+Route::get('/book/{bookId}', [BookController::class, 'show'])->name("book.show");
+
+Route::get('/books/export', [BookController::class, 'export'])->name('books.export');
 
 use App\Http\Controllers\StudentController;
 

@@ -13,7 +13,7 @@ class BorrowController extends Controller
     public function index()
     {
         $borrows = Borrow::all();
-        return view('borrowing.index')->with('borrows',$borrows);
+        return view('nha.borrowing.index')->with('borrows',$borrows);
     }
 
     /**

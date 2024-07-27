@@ -21,7 +21,6 @@ return new class extends Migration
             //$table->string('book_publisher')->nullable();
             $table->string('book_quantity');
             $table->string('book_price');
-            $table->date('book_date_update')->nullable();
             $table->string('book_description')->nullable();
             $table->unsignedBigInteger('subject_id');
             $table->foreign('subject_id')->references('id')->on('subject');
