@@ -33,7 +33,9 @@ Route::get('/attendent/{attendentId}', [AttendentController::class, 'show'])->na
 
 Route::get('/attendent/student', [AttendentController::class, 'showStudentPage'])->name('attendent.student');
 Route::get('/attendent/export', [AttendentController::class, 'export'])->name('attendent.export');
-Route::post('attendent/scan', [AttendentController::class, 'scan'])->name('attendent.scan');
+
+// Route::get('/attendent/scan', [AttendentController::class, 'scanPage'])->name('attendent.scanPage');
+Route::post('/attendent/scan', [AttendentController::class, 'scanBarcode'])->name('attendent.scan');
 
 
 use App\Http\Controllers\BookController;

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\Models\Attendent;
 use App\Models\Student;
@@ -18,9 +19,9 @@ class AttendentController extends Controller
         $query = Attendent::query();
 
         if ($search) {
-            $query->whereHas('student', function($q) use ($search) {
+            $query->whereHas('student', function ($q) use ($search) {
                 $q->where('name', 'LIKE', '%' . $search . '%')
-                  ->orWhere('stu_id', 'LIKE', '%' . $search . '%');
+                    ->orWhere('stu_id', 'LIKE', '%' . $search . '%');
             });
         }
 
@@ -80,32 +81,41 @@ class AttendentController extends Controller
         return redirect()->route('attendent.index');
     }
 
-    public function scan(Request $request)
-    {
-        $barcode = $request->input('barcode');
-        $student = Student::where('stu_id', $barcode)->first();
+    public function scanPage()
+{
+    return view('attendent.scan');
+}
 
-        if ($student) {
-            $attendent = Attendent::where('student_id', $student->id)->latest()->first();
+public function scanBarcode(Request $request)
+{
+    $barcode = $request->input('barcode');
 
-            if ($attendent && is_null($attendent->time_out)) {
-                // Update the time_out for the latest attendent record
-                $attendent->time_out = now();
-                $attendent->save();
-            } else {
-                // Create a new attendent record
-                Attendent::create([
-                    'student_id' => $student->id,
-                    'date' => now()->toDateString(),
-                    'time_in' => now()->toTimeString(),
-                ]);
-            }
+    // Assuming barcode contains the student ID
+    $student = Student::where('stu_id', $barcode)->first();
 
-            return response()->json(['success' => true]);
-        }
-
-        return response()->json(['success' => false]);
+    if (!$student) {
+        return response()->json(['success' => false, 'message' => 'Student not found']);
     }
+
+    $attendent = Attendent::where('student_id', $student->id)
+                          ->whereNull('time_out')
+                          ->first();
+
+    if ($attendent) {
+        // Update time_out
+        $attendent->time_out = now();
+        $attendent->save();
+    } else {
+        // Create new record with time_in
+        Attendent::create([
+            'student_id' => $student->id,
+            'date' => now()->toDateString(),
+            'time_in' => now(),
+        ]);
+    }
+
+    return response()->json(['success' => true]);
+}
 
     public function export()
     {
@@ -144,5 +154,4 @@ class AttendentController extends Controller
 
         return response()->download($filename, $filename, $headers)->deleteFileAfterSend(true);
     }
-
 }

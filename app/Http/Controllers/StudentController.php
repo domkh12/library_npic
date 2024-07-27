@@ -180,7 +180,7 @@ class StudentController extends Controller
         $generator = new BarcodeGeneratorPNG();
         $barcode = base64_encode($generator->getBarcode($student->stu_id, $generator::TYPE_CODE_128));
 
-        $pdf = PDF::loadView('eichanudom.tudents.barcode_pdf', compact('student', 'barcode'));
+        $pdf = PDF::loadView('eichanudom.students.barcode_pdf', compact('student', 'barcode'));
         return $pdf->download('student_barcode.pdf');
     }
 }
