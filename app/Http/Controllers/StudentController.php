@@ -7,17 +7,36 @@ use App\Models\Faculty;
 use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\Year;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class StudentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $students = Student::all();
-        return view('eichanudom.students.index')->with('students', $students);
+        $perPage = $request->input('per_page', 10); // Default to 10 rows per page
+        $search = $request->input('search'); // Get search term
+
+        $query = Student::query();
+
+        if ($search) {
+            $query->where('name', 'LIKE', '%' . $search . '%')
+                  ->orWhere('phone', 'LIKE', '%' . $search . '%')
+                  ->orWhere('stu_id', 'LIKE', '%' . $search . '%')
+                  ->orWhereHas('faculty', function($q) use ($search) {
+                      $q->where('fac_name', 'LIKE', '%' . $search . '%');
+                  });
+        }
+
+        $students = $query->paginate($perPage);
+
+        return view('eichanudom.students.index', compact('students'));
+        // $students = Student::all();
+        // return view('eichanudom.students.index')->with('students', $students);
     }
 
     /**
@@ -64,15 +83,39 @@ class StudentController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $student = Student::find($id);
+        $years = Year::all();
+        $faculty = Faculty::all();
+
+        return view('eichanudom.students.edit', compact('student', 'years', 'faculty'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'stu_id' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
+            'phone' => 'required|string|max:20',
+            'year_id' => 'required|exists:year,id',
+            'fac_id' => 'required|exists:faculty,id',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('student.edit', ['studentId' => $id])
+                ->withInput()
+                ->withErrors($validator);
+        }
+
+        $student = Student::find($id);
+        $student->stu_id = $request->input('stu_id');
+        $student->name = $request->input('name');
+        $student->phone = $request->input('phone');
+        $student->year_id = $request->input('year_id');
+        $student->fac_id = $request->input('fac_id');
+        $student->save();
+
+        Session::flash('student_update', 'Student is updated.');
+        return redirect()->route('student.edit', ['studentId' => $id]);
     }
 
     /**
@@ -84,5 +127,37 @@ class StudentController extends Controller
         $student->delete();
         Session::flash('student_delete', 'student is deleted.');
         return redirect('student');
+    }
+    
+    public function export()
+    {
+        $students = Student::all();
+        $filename = "students.csv";
+        $handle = fopen($filename, 'w+');
+
+        // Add BOM to fix UTF-8 in Excel
+        fprintf($handle, chr(0xEF).chr(0xBB).chr(0xBF));
+
+        fputcsv($handle, ['ID សិស្ស', 'ឈ្មោះ', 'លេខទូរស័ព្ទ', 'ជំនាញ', 'ឆ្នាំ', 'ចំនួនខ្ចីសៀវភៅ']);
+
+        foreach ($students as $student) {
+            fputcsv($handle, [
+                $student->stu_id,
+                $student->name,
+                $student->phone,
+                $student->faculty->fac_name,
+                optional($student->year)->year_name ?? 'N/A',
+                $student->borrow_qty
+            ]);
+        }
+
+        fclose($handle);
+
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        ];
+
+        return Response::download($filename, $filename, $headers)->deleteFileAfterSend(true);
     }
 }

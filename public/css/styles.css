@@ -100,6 +100,60 @@
     }
 }
 
+/* styles.css */
+body.dark-mode {
+    background-color: black;
+    color: white;
+}
+
+body.dark-mode .my-navbar, 
+body.dark-mode .sb-sidenav, 
+body.dark-mode .card {
+    background-color: black;
+    color: white;
+}
+
+body.dark-mode a {
+    color: white;
+}
+
+body.dark-mode .sb-text-dark-icon {
+    color: white;
+}
+
+body.dark-mode .dropdown-menu {
+    background-color: black;
+    color: white;
+}
+
+body.dark-mode .form-check-label {
+    color: white;
+}
+
+/* Menu text and icon color in dark mode */
+body.dark-mode .my-sidenav a,
+body.dark-mode .sb-sidenav-menu a {
+    color: white !important;
+}
+
+body.dark-mode .my-sidenav .sb-text-dark-icon,
+body.dark-mode .sb-sidenav-menu .sb-text-dark-icon {
+    color: white !important;
+}
+
+/* Hover effect for dark mode */
+body.dark-mode .my-sidenav a:hover,
+body.dark-mode .sb-sidenav-menu a:hover {
+    color: black !important;
+    background-color: white;
+}
+
+body.dark-mode .my-sidenav a:hover .sb-text-dark-icon,
+body.dark-mode .sb-sidenav-menu a:hover .sb-text-dark-icon {
+    color: black !important;
+}
+
+
 .menu-toggle {
     width: 20px;
     height: 20px;
@@ -135,14 +189,14 @@
     align-items: center;
     font-size: 18px;
     padding: 15px 10px;
-    border-radius: 10px;    
+    border-radius: 10px;
 }
 
 .my-sidenav a:hover {
-    background-color: #ebebeb;    
+    background-color: #ebebeb;
 }
 
-.my-dropdown-menu{
+.my-dropdown-menu {
     background-color: white;
 }
 

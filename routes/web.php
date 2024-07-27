@@ -63,6 +63,8 @@ Route::delete("/student/{studentId}", [StudentController::class, 'destroy'])->na
 
 Route::get('/student/{cateId}', [StudentController::class, 'show'])->name("student.show");
 
+Route::get('/export', [StudentController::class, 'export'])->name('students.export');
+
 use App\Http\Controllers\BorrowController;
 
 Route::get('/borrow', [BorrowController::class, 'index'])->name("borrow.list");
