@@ -54,7 +54,7 @@ class BookController extends Controller
          Book::create($validatedData);
 
          Session::flash('book_create', 'Book is created.');
-         return redirect()->route('book.list');
+         return redirect()->route('book.index');
 
     }
 
@@ -64,7 +64,7 @@ class BookController extends Controller
     public function show(string $id)
     {
         $books = Book::find($id);
-        return view('chakriya.book.show')->with('books', $books);
+        return view('chakriya.book.show')->with('book', $books);
     }
 
     /**
@@ -119,7 +119,7 @@ class BookController extends Controller
 		Session::flash('book_update','Book is updated.');
        return redirect()->route('book.edit', ['bookID' => $id]);
 
-    }
+    } 
 
     /**
      * Remove the specified resource from storage.
