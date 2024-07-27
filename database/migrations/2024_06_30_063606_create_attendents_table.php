@@ -14,17 +14,12 @@ return new class extends Migration
         Schema::create('attendents', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('stu_id');
-            $table->foreign('stu_id')->references('id')->on('student');
-            $table->unsignedBigInteger('fact_id');
-            $table->foreign('fact_id')->references('id')->on('faculty'); 
-            $table->unsignedBigInteger('gender_id')->unsigned();
-            $table->foreign('gender_id')->references('id')->on('gender');
+            $table->foreign('stu_id')->references('id')->on('student');           
             $table->time('time_in');
-            $table->time('time_out');
+            $table->time('time_out')->nullable(); // Nullable if student hasn't left yet
             $table->date('date');
-            $table->string('status');
+            $table->string('status')->nullable(); // Nullable if status is optional
             $table->timestamps();
-            
         });
     }
 

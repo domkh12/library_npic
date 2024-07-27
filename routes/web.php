@@ -15,7 +15,9 @@ Route::get('/testuser', function () {
 
 use App\Http\Controllers\AttendentController;
 
-Route::get('/attendent', [AttendentController::class, 'index'])->name("attendent.list");
+// Route::get('/attendent', [AttendentController::class, 'index'])->name("attendent.list");
+Route::get('/attendent', [AttendentController::class, 'index'])->name('attendent.list');
+Route::get('/attendent/export', [AttendentController::class, 'export'])->name('attendent.export');
 
 Route::get('/attendent/create', [AttendentController::class, 'create'])->name("attendent.create");
 
@@ -27,7 +29,12 @@ Route::put("/attendent/{attendentId}", [AttendentController::class, 'update'])->
 
 Route::delete("/attendent/{attendentId}", [AttendentController::class, 'destroy'])->name('attendent.delete');
 
-Route::get('/attendent/{cateId}', [AttendentController::class, 'show'])->name("attendent.show");
+Route::get('/attendent/{attendentId}', [AttendentController::class, 'show'])->name("attendent.show");
+
+Route::get('/attendent/student', [AttendentController::class, 'showStudentPage'])->name('attendent.student');
+Route::get('/attendent/export', [AttendentController::class, 'export'])->name('attendent.export');
+Route::post('attendent/scan', [AttendentController::class, 'scan'])->name('attendent.scan');
+
 
 use App\Http\Controllers\BookController;
 
@@ -63,7 +70,9 @@ Route::delete("/student/{studentId}", [StudentController::class, 'destroy'])->na
 
 Route::get('/student/{studentId}', [StudentController::class, 'show'])->name("student.show");
 
-Route::get('/export', [StudentController::class, 'export'])->name('students.export');
+Route::get('/students/export', [StudentController::class, 'export'])->name('students.export');
+Route::get('student/{id}/barcode', [StudentController::class, 'generateBarcode'])->name('student.barcode');
+Route::get('student/{id}/barcode/pdf', [StudentController::class, 'generatePDF'])->name('student.barcode.pdf');
 
 use App\Http\Controllers\BorrowController;
 

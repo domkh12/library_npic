@@ -3,17 +3,30 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Attendent;
+use App\Models\Student;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Session;
 
 class AttendentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $attendents = Attendent::all();
-        return view('kong.attendent.index')->with('attendents', $attendents);
+        $search = $request->input('search'); // Get search term
+        $query = Attendent::query();
 
+        if ($search) {
+            $query->whereHas('student', function($q) use ($search) {
+                $q->where('name', 'LIKE', '%' . $search . '%')
+                  ->orWhere('stu_id', 'LIKE', '%' . $search . '%');
+            });
+        }
+
+        $attendents = $query->paginate(10); // Paginate results
+
+        return view('kong.attendent.index')->with('attendents', $attendents);
     }
 
     /**
@@ -61,6 +74,75 @@ class AttendentController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $attendent = Attendent::find($id);
+        $attendent->delete();
+        Session::flash('attendent_delete', 'Attendent is deleted.');
+        return redirect()->route('attendent.index');
     }
+
+    public function scan(Request $request)
+    {
+        $barcode = $request->input('barcode');
+        $student = Student::where('stu_id', $barcode)->first();
+
+        if ($student) {
+            $attendent = Attendent::where('student_id', $student->id)->latest()->first();
+
+            if ($attendent && is_null($attendent->time_out)) {
+                // Update the time_out for the latest attendent record
+                $attendent->time_out = now();
+                $attendent->save();
+            } else {
+                // Create a new attendent record
+                Attendent::create([
+                    'student_id' => $student->id,
+                    'date' => now()->toDateString(),
+                    'time_in' => now()->toTimeString(),
+                ]);
+            }
+
+            return response()->json(['success' => true]);
+        }
+
+        return response()->json(['success' => false]);
+    }
+
+    public function export()
+    {
+        $attendents = Attendent::all();
+        $filename = "attendents.csv";
+        $handle = fopen($filename, 'w+');
+
+        // Add BOM to fix UTF-8 in Excel
+        fprintf($handle, chr(0xEF) . chr(0xBB) . chr(0xBF));
+
+        fputcsv($handle, ['ID សិស្ស', 'ឈ្មោះ', 'ជំនាញ', 'កាលបរិច្ឆេទ', 'ម៉ោងចូល', 'ម៉ោងចេញ', 'រយះពេល', 'ស្ថានភាព']);
+
+        foreach ($attendents as $attendent) {
+            $timeIn = new \DateTime($attendent->time_in);
+            $timeOut = new \DateTime($attendent->time_out);
+            $interval = $timeIn->diff($timeOut);
+
+            fputcsv($handle, [
+                $attendent->student->stu_id,
+                $attendent->student->name,
+                $attendent->student->faculty->fac_name,
+                $attendent->date,
+                $timeIn->format('h:i A'),
+                $timeOut->format('h:i A'),
+                $interval->format('%hh:%I:%S'),
+                $attendent->time_out ? 'បានចេញ' : 'នៅក្នុងបណ្ណាល័យ'
+            ]);
+        }
+
+        fclose($handle);
+
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        ];
+
+        return response()->download($filename, $filename, $headers)->deleteFileAfterSend(true);
+    }
+
 }

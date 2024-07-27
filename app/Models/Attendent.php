@@ -11,9 +11,7 @@ class Attendent extends Model
     use HasFactory;
     protected $table = 'attendents';
     protected $fillable = [
-        'name',
-        'gender',
-        'faculty',
+        'stu_id',
         'time_in',
         'time_out',
         'date',
@@ -23,13 +21,5 @@ class Attendent extends Model
     public function student()
     {
         return $this->belongsTo(Student::class, 'stu_id', '');
-    }
-    public function gender()
-    {
-        return $this->belongsTo(Gender::class);
-    }
-    public function faculty()
-    {
-        return $this->belongsTo(Faculty::class, 'fact_id', 'id');
-    }
+    }     
 }

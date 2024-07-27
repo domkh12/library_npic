@@ -30,7 +30,7 @@
 
 @if (count($students) > 0)
 <div class="table-responsive">
-    <table class="table table-striped table-hover text-center"> <!-- Add text-center class here -->
+    <table class="table table-striped table-hover text-center">
         <thead class="table-dark">
             <tr>
                 <th>ID សិស្ស</th>
@@ -46,13 +46,16 @@
             @foreach ($students as $student)
             <tr>
                 <td>{{ $student->stu_id }}</td>
-                <td><a href="{{ url('/student/' . $student->id) }}">{{ $student->name }}</a></td>
+                <td>{{ $student->name }}</td>
                 <td>{{ $student->phone }}</td>
                 <td>{{ $student->faculty->fac_name }}</td>
                 <td>{{ optional($student->year)->year_name ?? 'N/A' }}</td>
                 <td>{{ $student->borrow_qty }}</td>
                 <td class="d-flex gap-2 justify-content-center">
-                    <a class="btn btn-sm btn-info" href="{{ url('/student/' . $student->id) }}">
+                    <a class="btn btn-sm btn-info" href="{{ route('student.barcode', $student->id) }}">
+                        <i class="fa fa-barcode"></i>
+                    </a>
+                    <a class="btn btn-sm btn-primary" href="{{ url('/student/' . $student->id) }}">
                         <i class="fa fa-eye"></i>
                     </a>
                     <a class="btn btn-sm btn-warning" href="{{ url('/student/' . $student->id . '/edit') }}">
@@ -72,8 +75,10 @@
     </table>
 </div>
 
-<div class="d-flex justify-content-center mt-3">
-    {{ $students->appends(request()->query())->links('pagination::bootstrap-4') }}
+<div class="d-flex justify-content-between align-items-center mt-3">
+    <div class="d-flex">
+        {{ $students->appends(request()->query())->links('pagination::bootstrap-4') }}
+    </div>
 </div>
 @endif
 

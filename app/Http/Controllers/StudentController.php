@@ -7,9 +7,12 @@ use App\Models\Faculty;
 use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\Year;
-use Illuminate\Support\Facades\Response;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Writer\PngWriter;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Picqer\Barcode\BarcodeGeneratorPNG;
 
 class StudentController extends Controller
 {
@@ -159,6 +162,25 @@ class StudentController extends Controller
             'Content-Disposition' => 'attachment; filename="' . $filename . '"',
         ];
 
-        return Response::download($filename, $filename, $headers)->deleteFileAfterSend(true);
+        return response()->download($filename, $filename, $headers)->deleteFileAfterSend(true);
+    }
+
+    public function generateBarcode($id)
+    {
+        $student = Student::findOrFail($id);
+        $generator = new BarcodeGeneratorPNG();
+        $barcode = base64_encode($generator->getBarcode($student->stu_id, $generator::TYPE_CODE_128));
+
+        return view('eichanudom.students.barcode', compact('student', 'barcode'));
+    }
+
+    public function generatePDF($id)
+    {
+        $student = Student::findOrFail($id);
+        $generator = new BarcodeGeneratorPNG();
+        $barcode = base64_encode($generator->getBarcode($student->stu_id, $generator::TYPE_CODE_128));
+
+        $pdf = PDF::loadView('eichanudom.tudents.barcode_pdf', compact('student', 'barcode'));
+        return $pdf->download('student_barcode.pdf');
     }
 }
