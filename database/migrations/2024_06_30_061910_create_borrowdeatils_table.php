@@ -13,6 +13,18 @@ return new class extends Migration
     {
         Schema::create('borrowdeatils', function (Blueprint $table) {
             $table->id();
+            $table->date('borrow_date');
+            $table->date('return_date')->nullable();
+            $table->date('deadline_date');
+            // add status and price pelaty
+            $table->string('status')->default('Pending');
+            $table->decimal('price_penalty', 8, 2)->default(0);
+            // Relationships             
+            $table->unsignedBigInteger('book_id');
+            $table->foreign('book_id')->references('id')->on('book');   
+            $table->unsignedBigInteger('stu_id');
+            $table->foreign('stu_id')->references('id')->on('student');                   
+
             $table->timestamps();
         });
     }

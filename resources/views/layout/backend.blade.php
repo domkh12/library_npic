@@ -103,7 +103,7 @@
                             <div class="sb-text-dark-icon"><i class="fa-solid fa-right-left"></i></div>
                             គ្រប់គ្រងការខ្ចីសៀវភៅ
                         </a>
-                        <a class="text-dark d-flex" href="#">
+                        <a class="text-dark d-flex" href="/reports">
                             <div class="sb-text-dark-icon"><i class="fa-solid fa-file-lines"></i></div>
                             របាយការណ៍
                         </a>

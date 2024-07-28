@@ -54,48 +54,48 @@ class BookController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-{
-    $validator = Validator::make($request->all(), [
-        'book_name' => 'required|string|max:255',
-        'book_number' => 'required|numeric|min:1',
-        'book_isbn' => 'required|string|max:255',
-        'book_author' => 'required|string|max:255',
-        'subject_id' => 'required|exists:subject,id',
-        'category_id' => 'required|exists:category,id',
-        'book_quantity' => 'nullable|integer|min:0',
-        'book_price' => 'required|numeric|min:0',
-        'book_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-    ]);
+    {
+        $validator = Validator::make($request->all(), [
+            'book_name' => 'required|string|max:255',
+            'book_number' => 'required|numeric|min:1',
+            'book_isbn' => 'required|string|max:255',
+            'book_author' => 'required|string|max:255',
+            'subject_id' => 'required|exists:subject,id',
+            'category_id' => 'required|exists:category,id',
+            'book_quantity' => 'nullable|integer|min:0',
+            'book_price' => 'required|numeric|min:0',
+            'book_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
 
-    if ($validator->fails()) {
-        return redirect()->route('book.create')
-            ->withInput()
-            ->withErrors($validator);
+        if ($validator->fails()) {
+            return redirect()->route('book.create')
+                ->withInput()
+                ->withErrors($validator);
+        }
+
+        $product = new Book();
+        $product->book_name = $request->book_name;
+        $product->book_number = $request->book_number;
+        $product->book_isbn = $request->book_isbn;
+        $product->book_author = $request->book_author;
+        $product->subject_id = $request->subject_id;
+        $product->category_id = $request->category_id;
+        $product->book_quantity = $request->book_quantity;
+        $product->book_price = $request->book_price;
+
+        if ($request->hasFile('book_photo')) {
+            $image = $request->file('book_photo');
+            $upload = 'img/';
+            $filename = time() . '-' . $image->getClientOriginalName();
+            $image->move(public_path($upload), $filename);
+            $product->book_photo = $upload . $filename;
+        }
+
+        $product->save();
+
+        Session::flash('book_create', 'Book created successfully.');
+        return redirect()->route('book.create');
     }
-
-    $product = new Book();
-    $product->book_name = $request->book_name;
-    $product->book_number = $request->book_number;
-    $product->book_isbn = $request->book_isbn;
-    $product->book_author = $request->book_author;
-    $product->subject_id = $request->subject_id;
-    $product->category_id = $request->category_id;
-    $product->book_quantity = $request->book_quantity;
-    $product->book_price = $request->book_price;
-
-    if ($request->hasFile('book_photo')) {
-        $image = $request->file('book_photo');
-        $upload = 'img/';
-        $filename = time() . '-' . $image->getClientOriginalName();
-        $image->move(public_path($upload), $filename);
-        $product->book_photo = $upload . $filename;
-    }
-
-    $product->save();
-
-    Session::flash('book_create', 'Book created successfully.');
-    return redirect()->route('book.create');
-}
 
     /**
      * Display the specified resource.
@@ -165,8 +165,6 @@ class BookController extends Controller
         return redirect()->route('book.edit', ['bookId' => $id]);
     }
 
-
-
     /**
      * Remove the specified resource from storage.
      */
@@ -199,7 +197,7 @@ class BookController extends Controller
                 optional($book->category)->category_name ?? 'N/A',
                 $book->book_quantity,
                 $book->book_price,
-                $book->created_at->format('Y-m-d'),
+                $book->created_at ? $book->created_at->format('Y-m-d') : '',
             ]);
         }
 

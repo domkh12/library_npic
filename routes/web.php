@@ -14,6 +14,7 @@ Route::get('/testuser', function () {
 });
 
 use App\Http\Controllers\AttendentController;
+use App\Http\Controllers\AuthController;
 
 // Route::get('/attendent', [AttendentController::class, 'index'])->name("attendent.list");
 Route::get('/attendent', [AttendentController::class, 'index'])->name('attendent.list');
@@ -79,8 +80,9 @@ Route::get('student/{id}/barcode', [StudentController::class, 'generateBarcode']
 Route::get('student/{id}/barcode/pdf', [StudentController::class, 'generatePDF'])->name('student.barcode.pdf');
 
 use App\Http\Controllers\BorrowController;
+use App\Http\Controllers\ReportController;
 
-Route::get('/borrow', [BorrowController::class, 'index'])->name("borrow.list");
+Route::get('/borrow', [BorrowController::class, 'index'])->name("borrow.index");
 
 Route::get('/borrow/create', [BorrowController::class, 'create'])->name("borrow.create");
 
@@ -92,4 +94,17 @@ Route::put("/borrow/{borrowId}", [BorrowController::class, 'update'])->name('bor
 
 Route::delete("/borrow/{borrowId}", [BorrowController::class, 'destroy'])->name('borrow.delete');
 
-Route::get('/borrow/{cateId}', [BorrowController::class, 'show'])->name("borrow.show");
+Route::get('/borrow/{borrowId}', [BorrowController::class, 'show'])->name("borrow.show");
+
+Route::get('borrowings/borrowId', [BorrowController::class, 'export'])->name('borrowings.export');
+
+Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
+Route::post('/reports/generate', [ReportController::class, 'generate'])->name('reports.generate');
+Route::get('/reports/export/{type}', [ReportController::class, 'export'])->name('reports.export');
+
+Route::get('/login', [AuthController::class, 'index'])->name('login');
+Route::post('/post-login', [AuthController::class, 'postLogin'])->name('login.post');
+Route::get('/registration', [AuthController::class, 'registration'])->name('register');
+Route::post('/post-registration', [AuthController::class, 'postRegistration'])->name('register.post');
+Route::get('/dashboard', [AuthController::class, 'dashboard']);
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');

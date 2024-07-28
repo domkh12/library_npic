@@ -1,73 +1,132 @@
 @extends('layout.backend')
 @section('content')
-<h1>បញ្ចីអវត្ដមានសិស្សចូលអាន​សៀវភៅ</h1>
-<a class="btn btn-primary" href="{{ url('/borrow/create') }}">New</a>
-@if (count($borrows) > 0)
-<table class="table table-bordered">
-<thead>
-    <th>ID</th>
-    <th>Name</th>
-    <th>Edit</th>
-    <th>Delete</th>
-</thead>
-<tbody>
-    @foreach ($borrows as $borrow)
-    <tr>
-        <td>
-            {!! $borrow->id !!}
-        </td>
-        <td>
-        <a href="{{ url('/borrow/' . $borrow->id) }}">{!! $borrow->name !!}</a>
-        </td>
-        <td><a class="btn btn-primary" href="{!! url('/borrow/' . $borrow->id . '/edit') !!}">Edit</a></td>
-        <td>
-                <form method="POST" action="{{ url('borrow/' . $borrow->id)}}" class="delete-form">
-                @csrf
-                @method('DELETE')
-                <button type="button" class="btn btn-danger delete">Delete</button>
-                </form>
-        </td>
-    </tr>
-    @endforeach
-</tbody>
-</table>
-@endif
-@if(Session::has('resort_delete'))
-    <div class="alert alert-primary alert-dismissible">
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        <strong>Primary!</strong> {!! session('borrow_delete') !!}
-    </div>
-@endif  
 
+<h1 class="mb-4">តារាងខ្ចីសៀវភៅ</h1>
+<div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+    <div class="d-flex flex-wrap align-items-center gap-2">
+        <form id="filter-form" method="GET" action="{{ url('/borrowings') }}" class="d-flex align-items-center">
+            <span>បង្ហាញ</span>
+            <select class="form-select mx-2" name="per_page" onchange="document.getElementById('filter-form').submit();" style="width: auto;">
+                <option value="10" {{ request('per_page') == 10 ? 'selected' : '' }}>10</option>
+                <option value="20" {{ request('per_page') == 20 ? 'selected' : '' }}>20</option>
+                <option value="30" {{ request('per_page') == 30 ? 'selected' : '' }}>30</option>
+            </select>
+            <span>ទិន្ន័យ</span>
+        </form>
+        <form id="search-form" method="GET" action="{{ url('/borrowings') }}" class="d-flex align-items-center gap-2">
+            <input type="text" name="search" class="form-control ml-2" placeholder="ស្វែងរក" aria-label="Search" value="{{ request('search') }}" style="width: 200px;">
+            <button type="submit" class="btn btn-primary">ស្វែងរក</button>
+        </form>
+    </div>
+    <div class="d-flex flex-wrap gap-2 mt-2 mt-md-0">
+        <a class="btn btn-outline-primary" href="{{ route('borrowings.export') }}">
+            <i class="fa fa-file-excel"></i> ទាញយកជា excel
+        </a>
+        <a class="btn btn-primary" href="{{ url('/borrow/create') }}">
+            <i class="fa fa-plus"></i> បញ្ចូលការខ្ចីសៀវភៅ
+        </a>
+    </div>
+</div>
+
+@if (count($borrowings) > 0)
+<div class="table-responsive">
+    <table class="table table-striped table-hover text-center">
+        <thead class="table-dark">
+            <tr>
+                <th>ឈ្មោះសិស្ស</th>
+                <th>ឈ្មោះសៀវភៅ</th>
+                <th>កាលបរិច្ឆេទខ្ចី</th>
+                <th>កាលបរិច្ឆេទត្រូវត្រឡប់</th>
+                <th>កាលបរិច្ឆេទសង</th>
+                <th>ស្ថានភាព</th>
+                <th>ពិន័យ</th>
+                <th>ប្រតិបត្តិការ</th>
+            </tr>
+        </thead>
+        <tbody>       
+            @foreach ($borrowings as $borrowing)
+            <tr>
+                <td>{{ $borrowing->student->name }}</td>
+                <td>{{ $borrowing->book->book_name }}</td>
+                <td>{{ \Carbon\Carbon::parse($borrowing->borrow_date)->format('d/m/Y') }}</td>
+                <td>{{ \Carbon\Carbon::parse($borrowing->deadline_date)->format('d/m/Y') }}</td>
+                <td>{{ \Carbon\Carbon::parse($borrowing->return_date)->format('d/m/Y') }}</td>
+                <td>{{ $borrowing->status }}</td>
+                <td>{{ number_format($borrowing->price_penalty) }}៛</td>
+                <td class="d-flex gap-2 justify-content-center">
+                    <a class="btn btn-sm btn-primary" href="{{ url('/borrow/' . $borrowing->id) }}">
+                        <i class="fa fa-eye"></i>
+                    </a>
+                    <a class="btn btn-sm btn-warning" href="{{ url('/borrow/' . $borrowing->id . '/edit') }}">
+                        <i class="fa fa-edit"></i>
+                    </a>
+                    <form method="POST" action="{{ url('borrow/' . $borrowing->id) }}" class="delete-form">
+                        @csrf
+                        @method('DELETE')
+                        <button type="button" class="btn btn-sm btn-danger delete">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
+
+<div class="d-flex justify-content-center mt-3"> <!-- Changed to center the pagination -->
+    <div class="d-flex">
+        {{ $borrowings->appends(request()->query())->links('pagination::bootstrap-4') }}
+    </div>
+</div>
+@endif
+
+<!-- Include Toastify CSS and JS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" rel="stylesheet" />
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        @if(Session::has('borrowing_create'))
+        Toastify({
+            text: "{{ session('borrowing_create') }}",
+            duration: 3000,
+            close: true,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "#4CAF50",
+        }).showToast();
+        @endif
+
+        @if(Session::has('borrowing_delete'))
+        Toastify({
+            text: "{{ session('borrowing_delete') }}",
+            duration: 3000,
+            close: true,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "#FF0000",
+        }).showToast();
+        @endif
+    });
+
     $(".delete").click(function() {
         var form = $(this).closest('form');
-        $('<div></div>').appendTo('body')
-            .html('<div><h6> Are you sure ?</h6></div>')
-            .dialog({
-                modal: true,
-                title: 'Delete message',
-                zIndex: 10000,
-                autoOpen: true,
-                width: 'auto',
-                resizable: false,
-                buttons: {
-                    Yes: function() {
-                        $(this).dialog('close');
-                        form.submit();
-                    },
-                    No: function() {
-                        $(this).dialog("close");
-                        return false;
-                    }
-                },
-                close: function(event, ui) {
-                    $(this).remove();
-                }
-            });
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+        });
         return false;
     });
 </script>
