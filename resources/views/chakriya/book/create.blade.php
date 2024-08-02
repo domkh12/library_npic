@@ -29,22 +29,28 @@
             
             <div class="col-md-6 mb-3">
                 <label for="subject_id" class="form-label">មុខវិជ្ជា:</label>
-                <select class="form-select" id="subject_id" name="subject_id">
-                    <option value="">ជ្រើសរើសមុខវិជ្ជា</option>
-                    @foreach ($subjects as $subject)
-                        <option value="{{ $subject->id }}" {{ old('subject_id') == $subject->id ? 'selected' : '' }}>{{ $subject->subject_name }}</option>
-                    @endforeach
-                </select>
+                <div class="input-group">
+                    <select class="form-select" id="subject_id" name="subject_id">
+                        <option value="">ជ្រើសរើសមុខវិជ្ជា</option>
+                        @foreach ($subjects as $subject)
+                            <option value="{{ $subject->id }}" {{ old('subject_id') == $subject->id ? 'selected' : '' }}>{{ $subject->subject_name }}</option>
+                        @endforeach
+                    </select>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#addSubjectModal">Add New</button>
+                </div>
             </div>
             
             <div class="col-md-6 mb-3">
                 <label for="category_id" class="form-label">ប្រភេទសៀវភៅ:</label>
-                <select class="form-select" id="category_id" name="category_id">
-                    <option value="">ជ្រើសរើសប្រភេទសៀវភៅ</option>
-                    @foreach ($categories as $category)
-                        <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->category_name }}</option>
-                    @endforeach
-                </select>
+                <div class="input-group">
+                    <select class="form-select" id="category_id" name="category_id">
+                        <option value="">ជ្រើសរើសប្រភេទសៀវភៅ</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->category_name }}</option>
+                        @endforeach
+                    </select>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#addCategoryModal">Add New</button>
+                </div>
             </div>
             
             <div class="col-md-6 mb-3">
@@ -78,6 +84,50 @@
             <a class="btn btn-secondary" href="{{ route('book.list') }}">ថយក្រោយ</a>
         </div>
     </form>
+
+    <!-- Modal for adding new subject -->
+    <div class="modal fade" id="addSubjectModal" tabindex="-1" aria-labelledby="addSubjectModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addSubjectModalLabel">Add New Subject</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="subjectForm" action="{{ route('subject.store') }}" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="subject_name" class="form-label">Subject Name:</label>
+                            <input type="text" class="form-control" id="subject_name" name="subject_name" placeholder="Enter Subject Name">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for adding new category -->
+    <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addCategoryModalLabel">Add New Category</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="categoryForm" action="{{ route('category.store') }}" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="category_name" class="form-label">Category Name:</label>
+                            <input type="text" class="form-control" id="category_name" name="category_name" placeholder="Enter Category Name">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>

@@ -1,62 +1,89 @@
 @extends('auth.layout')
 
 @section('content')
-<main class="login-form">
-    <div class="cotainer">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Login</div>
-                    <div class="card-body">
+<main class="login-form" style="position: relative; height: 100vh;">
+    <!-- Background Image with Blur -->
+    <div style="
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('bg-login.jpg') no-repeat center center fixed;
+        background-size: cover;
+        filter: blur(10px);
+        z-index: -1;">
+    </div>
+
+    <div class="container d-flex align-items-center justify-content-center h-100">
+        <div class="card" style="width: 100%; max-width: 1400px; height: 80vh; backdrop-filter: blur(10px); border-radius: 20px; overflow: hidden;">
+            <div class="row no-gutters h-100">
+                <!-- Image Section -->
+                <div class="col-md-6 h-100" style="background: url('img-leftLogin.jpg') no-repeat center center; background-size: cover;">
+                </div>
+
+                <!-- Login Form Section -->
+                <div class="col-md-6 d-flex align-items-center justify-content-center">
+                    <div class="card-body p-4" style="width: 100%; max-width: 500px;">
+                        <div class="text-center mb-4">
+                            <img src="{{ asset('logo.png') }}" alt="Logo" class="mb-3" style="width: 120px;">
+                            <h4 class="font-weight-bold">WELCOME</h4>
+                            <p class="text-muted">Fill your data to enter. Thank you!!!</p>
+                        </div>
+
+                        <!-- Success Message -->
                         @if(Session::has('success'))
-                        <div class="alert alert-success"><em>{!! session('success') !!}</em>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times</span></button>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <em>{!! session('success') !!}</em>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
                         @endif
+
+                        <!-- Error Message -->
                         @if(Session::has('errors'))
-                        <div class="alert alert-danger"><em>{!! $errors->first() !!}</em>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times</span></button>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <em>{!! $errors->first() !!}</em>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
                         @endif
+
+                        <!-- Login Form -->
                         <form action="{{ route('login.post') }}" method="POST">
                             @csrf
-                            <div class="form-group row">
-                                <label for="email_address" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
-                                <div class="col-md-6">
-                                    <input type="text" id="email_address" class="form-control" name="email" required autofocus>
-                                    @if ($errors->has('email'))
-                                    <span class="text-danger">{{ $errors->first('email') }}</span>
-                                    @endif
-                                </div>
+                            <div class="form-group">
+                                <label for="email_address">User</label>
+                                <input type="email" id="email_address" class="form-control @error('email') is-invalid @enderror" name="email" required autofocus>
+                                @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
 
-                            <div class="form-group row">
-                                <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
-                                <div class="col-md-6">
-                                    <input type="password" id="password" class="form-control" name="password" required>
-                                    @if ($errors->has('password'))
-                                    <span class="text-danger">{{ $errors->first('password') }}</span>
-                                    @endif
-                                </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" id="password" class="form-control @error('password') is-invalid @enderror" name="password" required>
+                                @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
 
-                            <div class="form-group row">
-                                <div class="col-md-6 offset-md-4">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="remember" value="1"> Remember Me
-                                        </label>
-                                    </div>
-                                </div>
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" id="remember" name="remember" value="1">
+                                <label class="form-check-label" for="remember">Remember login</label>
+                                <a href="#" class="float-right">Recover password</a>
                             </div>
 
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Login
-                                </button>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-block" style="background-color: #A76D60; border-color: #A76D60;">Login</button>
                             </div>
                         </form>
-
                     </div>
                 </div>
             </div>

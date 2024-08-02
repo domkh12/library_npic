@@ -42,12 +42,14 @@ class AuthController extends Controller
             'email' => 'required',
             'password' => 'required',
         ]);
+        
         $remember = $request->has('remember') ? true : false;
-        // config/session.php set 'expire_on_close' => true,
         $credentials = $request->only('email', 'password');
+        
         if (Auth::attempt($credentials, $remember)) {
-            return redirect()->intended('dashboard')->withSuccess('You have Successfully loggedin');
+            return redirect()->route('attendent.list')->withSuccess('You have successfully logged in');
         }
+        
         return redirect("login")->withErrors('You have entered invalid credentials!');
     }
 
@@ -107,7 +109,7 @@ class AuthController extends Controller
     public function logout() {
         Session::flush();
         Auth::logout();
-        return Redirect('login')->withSuccess('You have successfully loged out!');
+        return redirect('/login')->withSuccess('You have successfully logged out!');
     }
 
 }
