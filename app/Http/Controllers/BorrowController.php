@@ -58,6 +58,7 @@ class BorrowController extends Controller
             'borrow_date' => 'required|date',
             'return_date' => 'required|date',
             'deadline_date' => 'required|date',
+            'qty' => 'required|integer|min:1',
             'stu_id' => 'required|exists:student,id',
             'book_id' => 'required|exists:book,id',
             'status' => 'required|string'
@@ -120,6 +121,7 @@ class BorrowController extends Controller
             'borrow_date' => 'required|date',
             'return_date' => 'required|date',
             'deadline_date' => 'required|date',
+            'qty' => 'required|integer|min:1',            
             'stu_id' => 'required|exists:student,id',
             'book_id' => 'required|exists:book,id',
             'status' => 'required|string'

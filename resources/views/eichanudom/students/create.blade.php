@@ -37,8 +37,7 @@
                     <option value="">ជ្រើសរើសមហាវិទ្យាល័យ</option>
                     @foreach ($faculty as $fac)
                         <option value="{{ $fac->id }}">{{ $fac->fac_name }}</option>
-                    @endforeach
-                    <option value="new">Add New</option> <!-- Add this option -->
+                    @endforeach                    
                 </select>
                 <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#addFacultyModal">
                     Add New
@@ -56,8 +55,7 @@
                     <option value="">ជ្រើសរើសឆ្នាំ</option>
                     @foreach ($years as $year)
                         <option value="{{ $year->id }}">{{ $year->year_name }}</option>
-                    @endforeach
-                    <option value="new">Add New</option> <!-- Add this option -->
+                    @endforeach                  
                 </select>
                 <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#addYearModal">
                     Add New

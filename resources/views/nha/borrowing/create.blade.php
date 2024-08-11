@@ -65,6 +65,11 @@
         </div>
 
         <div class="form-group mb-3">
+            <label for="qty" class="form-label">Quantity:</label>
+            <input type="number" class="form-control" id="qty" name="qty" value="{{ old('qty') }}" required>
+        </div>
+
+        <div class="form-group mb-3">
             <label for="status" class="form-label">Status:</label>
             <input type="text" class="form-control" id="status" name="status" value="{{ old('status', 'Pending') }}" required>
         </div>

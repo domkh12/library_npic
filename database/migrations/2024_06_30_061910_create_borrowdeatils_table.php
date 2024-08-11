@@ -16,6 +16,7 @@ return new class extends Migration
             $table->date('borrow_date');
             $table->date('return_date')->nullable();
             $table->date('deadline_date');
+            $table->unsignedInteger('qty'); // Adjust this line
             // add status and price pelaty
             $table->string('status')->default('Pending');
             $table->decimal('price_penalty', 8, 2)->default(0);

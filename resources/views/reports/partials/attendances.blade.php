@@ -1,19 +1,19 @@
-<table class="table table-bordered">
-    <thead>
+<table class="table table-bordered" style="width: 100%; margin-top: 20px; font-family: Arial, sans-serif;">
+    <thead style="background-color: #f2f2f2; text-align: left;">
         <tr>
-            <th>ID សិស្ស</th>
-            <th>ឈ្មោះ</th>
-            <th>កាលបរិច្ឆេទ</th>
-            <th>ស្ថានភាព</th>
+            <th style="padding: 10px;">ID សិស្ស</th>
+            <th style="padding: 10px;">ឈ្មោះ</th>
+            <th style="padding: 10px;">កាលបរិច្ឆេទ</th>
+            <th style="padding: 10px;">ស្ថានភាព</th>
         </tr>
     </thead>
     <tbody>
         @foreach($data as $attendance)
-        <tr>
-            <td>{{ $attendance->student->stu_id }}</td>
-            <td>{{ $attendance->student->name }}</td>
-            <td>{{ $attendance->date }}</td>
-            <td>{{ $attendance->status }}</td>
+        <tr style="border-bottom: 1px solid #ddd;">
+            <td style="padding: 8px;">{{ $attendance->student->stu_id }}</td>
+            <td style="padding: 8px;">{{ $attendance->student->name }}</td>
+            <td style="padding: 8px;">{{ \Carbon\Carbon::parse($attendance->date)->format('d/m/Y') }}</td>
+            <td style="padding: 8px;">{{ $attendance->status }}</td>
         </tr>
         @endforeach
     </tbody>

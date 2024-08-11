@@ -182,7 +182,11 @@ body.dark-mode .sb-sidenav-menu a:hover .sb-text-dark-icon {
     gap: 2px;
 }
 
-
+.active {
+    background-color: #ebebeb;
+    color: #fff;
+    font-weight: bold;
+}
 
 .my-sidenav a {
     text-decoration: none;

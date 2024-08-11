@@ -17,6 +17,7 @@ class Borrow extends Model
         'return_date',        
         'price_penalty', 
         'deadline_date', 
+        'qty',
         'book_id',
         'pay_id',
         'stu_id',

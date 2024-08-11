@@ -5,7 +5,7 @@
 <h1 class="mb-4">តារាងសៀវភៅ</h1>
 <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
     <div class="d-flex flex-wrap align-items-center gap-2">
-        <form id="filter-form" method="GET" action="{{ url('/books') }}" class="d-flex align-items-center">
+        <form id="filter-form" method="GET" action="{{ url('/book') }}" class="d-flex align-items-center">
             <span>បង្ហាញ</span>
             <select class="form-select mx-2" name="per_page" onchange="document.getElementById('filter-form').submit();" style="width: auto;">
                 <option value="10" {{ request('per_page') == 10 ? 'selected' : '' }}>10</option>
@@ -14,7 +14,7 @@
             </select>
             <span>ទិន្ន័យ</span>
         </form>
-        <form id="search-form" method="GET" action="{{ url('/books') }}" class="d-flex align-items-center gap-2">
+        <form id="search-form" method="GET" action="{{ url('/book') }}" class="d-flex align-items-center gap-2">
             <input type="text" name="search" class="form-control ml-2" placeholder="ស្វែងរក" aria-label="Search" value="{{ request('search') }}" style="width: 200px;">
             <button type="submit" class="btn btn-primary">ស្វែងរក</button>
         </form>
@@ -64,7 +64,7 @@
                 <td>{{ optional($book->subject)->subject_name ?? 'N/A' }}</td>
                 <td>{{ optional($book->category)->category_name ?? 'N/A' }}</td>
                 <td>{{ $book->book_quantity }}</td>
-                <td>${{ $book->book_price }}</td>
+                <td>{{ $book->book_price }}៛</td>
                 <td>{{ \Carbon\Carbon::parse($book->created_at)->format('Y-m-d') }}</td>
                 <td>
                     <div class="d-flex gap-2 justify-content-center">
