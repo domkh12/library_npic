@@ -78,36 +78,55 @@
 <body>
     <nav class="my-navbar">
         <!-- Sidebar Toggle -->
-        <div>
-            <button class="btn btn-link btn-sm order-1 order-lg- me-0 me-lg-0 ms-1" id="sidebarToggle" href="#!">
-                <i class="menu-toggle fas fa-bars"></i>
-            </button>
-
+        <div class="logo-menu">
+            <i class="menu-toggle fas fa-bars" id="sidebarToggle"></i>
             <!-- Navbar Brand -->
-            <a class="navbar-brand" href="#">
+            <span class="navbar-brand">
                 <img width="60px" src="{{ asset('logo.png') }}" alt="Logo">
                 Library System
-            </a>
+            </span>
         </div>
 
         <!-- Dark Mode Toggle Icon -->
-        <div class="ms-auto me-3">
-            <div id="darkModeContainer" style="cursor: pointer;">
-                <i class="fa-solid fa-moon" id="darkModeIcon"></i>
-            </div>
-        </div>
+        
 
         <!-- Navbar -->
-        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-            <li class="nav-item dropdown">
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4 d-flex align-items-center">
+            <!-- Dark Mode Toggle Icon -->
+            <div class="ms-auto me-3" id="darkModeContainer" style="cursor: pointer;">
+                <i class="fa-solid fa-moon" id="darkModeIcon"></i>
+            </div>
+            
+            <!-- User Dropdown Menu -->
+            <li class="nav-item dropdown">   
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="fas fa-user fa-fw"></i>
-                </a>
+                </a>             
                 <ul class="dropdown-menu dropdown-menu-end my-dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a></li>
+                    <!-- User Info Section -->
+                    <li class="dropdown-item py-3">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-user-circle fa-2x me-2"></i>
+                            <div>
+                                <h6 class="mb-0">{{ Auth::user()->name }}</h6>
+                                <small>{{ Auth::user()->email }}</small>
+                            </div>
+                        </div>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <!-- Logout Link -->
+                    <li><a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <i class="fas fa-sign-out-alt me-2"></i>Logout
+                    </a></li>
                 </ul>
             </li>
         </ul>
+        
+        <!-- Hidden Logout Form -->
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
+        
         
         <!-- Hidden Logout Form -->
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
