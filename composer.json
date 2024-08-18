@@ -8,10 +8,10 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.1.29",
+        "php": "^8.1",
         "barryvdh/laravel-dompdf": "^2.2",
         "endroid/qr-code": "^5.0",
-        "laravel/framework": "^11.8",
+        "laravel/framework": "^10.48.20",
         "laravel/tinker": "^2.9",
         "picqer/php-barcode-generator": "^2.4"
     },
