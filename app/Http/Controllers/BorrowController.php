@@ -15,7 +15,7 @@ class BorrowController extends Controller
      */
     public function index(Request $request)
     {
-        $perPage = $request->input('per_page', 10);
+    $perPage = $request->input('per_page', 10);
     $search = $request->input('search');
 
     $query = Borrow::with(['student', 'book']);
@@ -29,12 +29,7 @@ class BorrowController extends Controller
 
     $borrowings = $query->paginate($perPage);
 
-    foreach ($borrowings as $borrowing) {
-        $returnDate = \Carbon\Carbon::parse($borrowing->return_date);
-        $deadlineDate = \Carbon\Carbon::parse($borrowing->deadline_date);
-        $daysLate = $returnDate->gt($deadlineDate) ? $returnDate->diffInDays($deadlineDate) : 0;
-        $borrowing->price_penalty = $daysLate * (-500);
-    }
+
 
     return view('nha.borrowing.index', compact('borrowings'));
     }
@@ -56,14 +51,19 @@ class BorrowController extends Controller
     {
         $validatedData = $request->validate([
             'borrow_date' => 'required|date',
-            'return_date' => 'required|date',
+            'return_date' => 'nullable|date',
             'deadline_date' => 'required|date',
             'qty' => 'required|integer|min:1',
             'stu_id' => 'required|exists:student,id',
             'book_id' => 'required|exists:book,id',
-            'status' => 'required|string'
+            'status' => 'string'
         ]);
     
+        $book = Book::find($validatedData['book_id']);
+        if ($book->book_quantity < $validatedData['qty']) {
+            return redirect()->back()->withErrors(['book_id' => 'ចំនួនសៀវភៅនៅក្នុងបណ្ណាល័យមិនគ្រប់គ្រាន់']);
+        }
+
         // Calculate the price penalty
         $returnDate = \Carbon\Carbon::parse($request->input('return_date'));
         $deadlineDate = \Carbon\Carbon::parse($request->input('deadline_date'));
@@ -72,6 +72,7 @@ class BorrowController extends Controller
     
         // Add the price penalty to the validated data
         $validatedData['price_penalty'] = $price_penalty;
+        $validatedData['status'] = 'កំពុងខ្ចី';
     
         // Create the borrowing record
         Borrow::create($validatedData);
@@ -119,7 +120,7 @@ class BorrowController extends Controller
     {
         $validatedData = $request->validate([
             'borrow_date' => 'required|date',
-            'return_date' => 'required|date',
+            'return_date' => 'nullable|date',
             'deadline_date' => 'required|date',
             'qty' => 'required|integer|min:1',            
             'stu_id' => 'required|exists:student,id',
@@ -132,7 +133,10 @@ class BorrowController extends Controller
         $deadlineDate = \Carbon\Carbon::parse($request->input('deadline_date'));
         $daysLate = $returnDate->gt($deadlineDate) ? $returnDate->diffInDays($deadlineDate) : 0;
         $price_penalty = $daysLate * (-500);
-    
+        $book = Book::find($validatedData['book_id']);
+        if ($book->book_quantity < $validatedData['qty']) {
+            return redirect()->back()->withErrors(['book_id' => 'ចំនួនសៀវភៅនៅក្នុងបណ្ណាល័យមិនគ្រប់គ្រាន់']);
+        }
         // Add the price penalty to the validated data
         $validatedData['price_penalty'] = $price_penalty;
     

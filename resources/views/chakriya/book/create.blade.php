@@ -19,12 +19,12 @@
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="book_name" class="form-label">ចំណងជើងសៀវភៅ:</label>
-                <input type="text" class="form-control" id="book_name" name="book_name" value="{{ old('book_name') }}">
+                <input type="text" class="form-control" id="book_name" name="book_name" value="{{ old('book_name') }}" placeholder="បញ្ចូលចំណងជើងសៀវភៅ">
             </div>
             
             <div class="col-md-6 mb-3">
                 <label for="book_isbn" class="form-label">លេខ​ ISBN:</label>
-                <input type="text" class="form-control" id="book_isbn" name="book_isbn" value="{{ old('book_isbn') }}">
+                <input type="text" class="form-control" id="book_isbn" name="book_isbn" value="{{ old('book_isbn') }}" placeholder="បញ្ចូលលេខ ISBN">
             </div>
             
             <div class="col-md-6 mb-3">
@@ -55,22 +55,22 @@
             
             <div class="col-md-6 mb-3">
                 <label for="book_price" class="form-label">តម្លៃ:</label>
-                <input type="number" class="form-control" id="book_price" name="book_price" value="{{ old('book_price') }}">
+                <input type="number" class="form-control" id="book_price" name="book_price" value="{{ old('book_price') }}" placeholder="បញ្ចូលតម្លៃ">
             </div>
             
             <div class="col-md-6 mb-3">
                 <label for="book_number" class="form-label">លេខសៀវភៅ:</label>
-                <input type="number" class="form-control" id="book_number" name="book_number" value="{{ old('book_number') }}">
+                <input type="number" class="form-control" id="book_number" name="book_number" value="{{ old('book_number') }}" placeholder="បញ្ចូលលេខសៀវភៅ">
             </div>
             
             <div class="col-md-6 mb-3">
                 <label for="book_author" class="form-label">អ្នកនិពន្ធ:</label>
-                <input type="text" class="form-control" id="book_author" name="book_author" value="{{ old('book_author') }}">
+                <input type="text" class="form-control" id="book_author" name="book_author" value="{{ old('book_author') }}" placeholder="បញ្ចូលឈ្មោះអ្នកនិពន្ធ">
             </div>
             
             <div class="col-md-6 mb-3">
                 <label for="book_quantity" class="form-label">ចំនួន:</label>
-                <input type="number" class="form-control" id="book_quantity" name="book_quantity" value="{{ old('book_quantity') }}">
+                <input type="number" class="form-control" id="book_quantity" name="book_quantity" value="{{ old('book_quantity') }}" placeholder="បញ្ចូលចំនួនសៀវភៅ">
             </div>
             
             <div class="col-md-6 mb-3">

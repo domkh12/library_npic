@@ -51,9 +51,14 @@
                 <td>{{ $borrowing->book->book_name }}</td>
                 <td>{{ \Carbon\Carbon::parse($borrowing->borrow_date)->format('d/m/Y') }}</td>
                 <td>{{ \Carbon\Carbon::parse($borrowing->deadline_date)->format('d/m/Y') }}</td>
-                <td>{{ \Carbon\Carbon::parse($borrowing->return_date)->format('d/m/Y') }}</td>
+                <td>{{ $borrowing->return_date }}</td>
                 <td>{{ $borrowing->qty }}</td>
-                <td>{{ $borrowing->status }}</td>
+                <td ><span style="display: inline-block;
+                    padding: 0.25em 0.75em;
+                    font-size: 0.875em;
+                    font-weight: 700;
+                    color: #fff;
+                border-radius: 0.375rem; background-color: {{ $borrowing->status == 'កំពុងខ្ចី' ? 'red' : 'green' }}">{{ $borrowing->status }}</span></td>
                 <td>{{ number_format($borrowing->price_penalty) }}៛</td>
                 <td class="d-flex gap-2 justify-content-center">
                     <a class="btn btn-sm btn-primary" href="{{ url('/borrow/' . $borrowing->id) }}">

@@ -27,7 +27,7 @@
     </div>
     <div class="form-group mb-3">
         <label for="deadline_date" class="form-label">កាលបរិច្ឆេទសង:</label>
-        <input type="date" class="form-control" id="return_date" name="return_date" value="{{ $borrowing->return_date }}" required>
+        <input type="date" class="form-control" id="return_date" name="return_date" value="{{ $borrowing->return_date }}">
     </div>
     <div class="form-group mb-3">
         <label for="stu_id" class="form-label">ID សិស្ស:</label>
@@ -57,8 +57,11 @@
     </div>
     <div class="form-group mb-3">
         <label for="status" class="form-label">Status:</label>
-        <input type="text" class="form-control" id="status" name="status" value="{{ $borrowing->status }}" required>
-    </div>    
+        <select class="form-control" id="status" name="status" required>
+            <option value="កំពុងខ្ចី" {{ $borrowing->status == 'កំពុងខ្ចី' ? 'selected' : '' }}>កំពុងខ្ចី</option>
+            <option value="បានសង" {{ $borrowing->status == 'បានសង' ? 'selected' : '' }}>បានសង</option>
+        </select>
+    </div>
     <button type="submit" class="btn btn-primary me-2">ធ្វើបច្ចុប្បន្នភាព</button>
     <a class="btn btn-secondary" href="{{ route('borrow.index') }}">ថយក្រោយ</a>
 </form>

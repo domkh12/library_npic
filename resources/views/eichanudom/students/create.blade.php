@@ -24,11 +24,11 @@
         @csrf
         <div class="form-group mb-3">
             <label for="stu_id" class="form-label">ID សិស្ស:</label>
-            <input type="text" class="form-control" id="stu_id" name="stu_id" placeholder="Enter Student ID">
+            <input type="text" class="form-control" id="stu_id" name="stu_id" placeholder="បញ្ចូល ID សិស្ស">
         </div>
         <div class="form-group mb-3">
             <label for="phone" class="form-label">លេខទូរស័ព្ទ:</label>
-            <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter Phone Number">
+            <input type="text" class="form-control" id="phone" name="phone" placeholder="បញ្ចូលលេខទូរស័ព្ទ">
         </div>
         <div class="form-group mb-3">
             <label for="fac_id" class="form-label">ជំនាញ:</label>
@@ -46,7 +46,7 @@
         </div>
         <div class="form-group mb-3">
             <label for="name" class="form-label">ឈ្មោះ:</label>
-            <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name">
+            <input type="text" class="form-control" id="name" name="name" placeholder="បញ្ចូលឈ្មោះ">
         </div>
         <div class="form-group mb-3">
             <label for="year_id" class="form-label">ឆ្នាំ:</label>
