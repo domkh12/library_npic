@@ -4,7 +4,7 @@
 <h1 class="mb-4">តារាងខ្ចីសៀវភៅ</h1>
 <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
     <div class="d-flex flex-wrap align-items-center gap-2">
-        <form id="filter-form" method="GET" action="{{ url('/borrowings') }}" class="d-flex align-items-center">
+        <form id="filter-form" method="GET" action="{{ url('/borrow') }}" class="d-flex align-items-center">
             <span>បង្ហាញ</span>
             <select class="form-select mx-2" name="per_page" onchange="document.getElementById('filter-form').submit();" style="width: auto;">
                 <option value="10" {{ request('per_page') == 10 ? 'selected' : '' }}>10</option>
@@ -13,7 +13,7 @@
             </select>
             <span>ទិន្ន័យ</span>
         </form>
-        <form id="search-form" method="GET" action="{{ url('/borrowings') }}" class="d-flex align-items-center gap-2">
+        <form id="search-form" method="GET" action="{{ url('/borrow') }}" class="d-flex align-items-center gap-2">
             <input type="text" name="search" class="form-control ml-2" placeholder="ស្វែងរក" aria-label="Search" value="{{ request('search') }}" style="width: 200px;">
             <button type="submit" class="btn btn-primary">ស្វែងរក</button>
         </form>
@@ -38,6 +38,7 @@
                 <th>កាលបរិច្ឆេទខ្ចី</th>
                 <th>កាលបរិច្ឆេទត្រូវត្រឡប់</th>
                 <th>កាលបរិច្ឆេទសង</th>
+                <th>ចំនួនខ្ចីសៀវភៅ</th>
                 <th>ស្ថានភាព</th>
                 <th>ពិន័យ</th>
                 <th>ប្រតិបត្តិការ</th>
@@ -50,8 +51,14 @@
                 <td>{{ $borrowing->book->book_name }}</td>
                 <td>{{ \Carbon\Carbon::parse($borrowing->borrow_date)->format('d/m/Y') }}</td>
                 <td>{{ \Carbon\Carbon::parse($borrowing->deadline_date)->format('d/m/Y') }}</td>
-                <td>{{ \Carbon\Carbon::parse($borrowing->return_date)->format('d/m/Y') }}</td>
-                <td>{{ $borrowing->status }}</td>
+                <td>{{ $borrowing->return_date }}</td>
+                <td>{{ $borrowing->qty }}</td>
+                <td ><span style="display: inline-block;
+                    padding: 0.25em 0.75em;
+                    font-size: 0.875em;
+                    font-weight: 700;
+                    color: #fff;
+                border-radius: 0.375rem; background-color: {{ $borrowing->status == 'កំពុងខ្ចី' ? 'red' : 'green' }}">{{ $borrowing->status }}</span></td>
                 <td>{{ number_format($borrowing->price_penalty) }}៛</td>
                 <td class="d-flex gap-2 justify-content-center">
                     <a class="btn btn-sm btn-primary" href="{{ url('/borrow/' . $borrowing->id) }}">

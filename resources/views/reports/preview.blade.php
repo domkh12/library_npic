@@ -15,7 +15,7 @@
 
 <div class="mt-3">
     <a href="{{ route('reports.export', ['type' => 'excel', 'report_type' => $reportType, 'start_date' => $startDate, 'end_date' => $endDate]) }}" class="btn btn-success">Export to Excel</a>
-    <a href="{{ route('reports.export', ['type' => 'pdf', 'report_type' => $reportType, 'start_date' => $startDate, 'end_date' => $endDate]) }}" class="btn btn-danger">Export to PDF</a>
+    <a href="{{ route('reports.index') }}" class="btn btn-secondary">ថយក្រោយ</a>
 </div>
 
 @endsection

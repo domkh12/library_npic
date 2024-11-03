@@ -47,6 +47,8 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
         
         if (Auth::attempt($credentials, $remember)) {
+            $user = Auth::user();
+           session(['user_id' => $user->id]);    
             return redirect()->route('attendent.list')->withSuccess('You have successfully logged in');
         }
         

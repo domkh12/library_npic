@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Faculty;
 use Illuminate\Http\Request;
 use App\Models\Student;
+use App\Models\User;
 use App\Models\Year;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Endroid\QrCode\QrCode;
@@ -64,9 +65,11 @@ class StudentController extends Controller
             'phone' => 'required|string|max:20',
             'year_id' => 'required|exists:year,id',
             'fac_id' => 'required|exists:faculty,id',
-            'borrow_qty' => 'nullable|integer|default:0',
+            'borrow_qty' => 'nullable|integer|default:0',            
         ]);
-
+        $userId = session('user_id');
+        $validatedData['user_id'] = $userId;
+        
         Student::create($validatedData);
 
         Session::flash('student_create', 'Student is created.');

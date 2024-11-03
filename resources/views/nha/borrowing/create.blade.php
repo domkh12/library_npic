@@ -35,10 +35,10 @@
             <input type="date" class="form-control" id="deadline_date" name="deadline_date" value="{{ old('deadline_date') }}" required>            
         </div>
 
-        <div class="form-group mb-3">
+        {{-- <div class="form-group mb-3">
             <label for="deadline_date" class="form-label">កាលបរិច្ឆេទសង:</label>
-            <input type="date" class="form-control" id="return_date" name="return_date" value="{{ old('return_date') }}" required>
-        </div>
+            <input type="date" class="form-control" id="return_date" name="return_date" value="{{ old('return_date') }}">
+        </div> --}}
 
         <div class="form-group mb-3">
             <label for="stu_id" class="form-label">ID សិស្ស:</label>
@@ -53,9 +53,9 @@
         </div>
 
         <div class="form-group mb-3">
-            <label for="book_id" class="form-label">Book ID:</label>
+            <label for="book_id" class="form-label">សៀវភៅ:</label>
             <select class="form-control" id="book_id" name="book_id" required>
-                <option value="">Select a Book</option>
+                <option value="">ជ្រើសរើសសៀវភៅ</option>
                 @foreach ($books as $book)
                     <option value="{{ $book->id }}" {{ old('book_id') == $book->id ? 'selected' : '' }}>
                         {{ $book->id }} - {{ $book->book_name }}
@@ -65,9 +65,14 @@
         </div>
 
         <div class="form-group mb-3">
+            <label for="qty" class="form-label">ចំនួន:</label>
+            <input type="number" class="form-control" id="qty" name="qty" value="{{ old('qty') }}" required placeholder="បញ្ចូលចំនួន">
+        </div>
+
+        {{-- <div class="form-group mb-3">
             <label for="status" class="form-label">Status:</label>
             <input type="text" class="form-control" id="status" name="status" value="{{ old('status', 'Pending') }}" required>
-        </div>
+        </div> --}}
 
         <input type="hidden" name="price_penalty" value="0">
 

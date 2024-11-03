@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->unsignedBigInteger('gen_id')->nullable();
+            $table->foreign('gen_id')->references('id')->on('gender');                   
             $table->string('password');
             $table->string('phone')->nullable();
             $table->string('address')->nullable();

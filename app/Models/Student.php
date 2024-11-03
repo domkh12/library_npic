@@ -15,7 +15,8 @@ class Student extends Model
         'phone',
         'year_id',
         'fac_id',
-        'borrow_qty'
+        'borrow_qty',
+        'user_id'
     ];
     public function year()
     {

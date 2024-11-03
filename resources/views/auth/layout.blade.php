@@ -1,14 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>Laravel</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Npic Library</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Library Management System - Login and Register">
+    <meta name="keywords" content="library, management, system, login, register, books, students, NPIC">
+    <meta name="author" content="Your Name">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="NPIC Library - Login and Register">
+    <meta property="og:description" content="Access the NPIC Library Management System. Login or Register to manage your library records.">
+    <meta property="og:image" content="https://cdn.pixabay.com/photo/2024/08/08/16/24/16-24-13-872_960_720.png">
+    <meta property="og:url" content="https://fbc5-175-100-11-120.ngrok-free.app/">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="NPIC Library - Login and Register">
+    <meta name="twitter:description" content="Access the NPIC Library Management System. Login or Register to manage your library records.">
+    <meta name="twitter:image" content="https://cdn.pixabay.com/photo/2024/08/08/16/24/16-24-13-872_960_720.png">
+    <meta name="twitter:site" content="@YourTwitterHandle">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="https://cdn.pixabay.com/photo/2024/08/08/15/58/hero-8954978_960_720.png" type="image/x-icon">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Khmer:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    
     <style type="text/css">
-       <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Khmer:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-
         body {
             margin: 0;
             font-size: .9rem;
@@ -20,12 +46,10 @@
             height: 100vh;
             overflow: hidden;
         }
-
         .navbar-laravel {
             box-shadow: 0 2px 4px rgba(0, 0, 0, .04);
             background-color: #ffffff;
         }
-
         .navbar-brand,
         .nav-link {
             font-family: Raleway, sans-serif;
@@ -33,37 +57,30 @@
             padding: 10px 15px;
             color: #5a5a5a;
         }
-
         .nav-link:hover {
             color: #000000;
         }
-
         .my-form,
         .login-form {
             font-family: Raleway, sans-serif;
         }
-
         .my-form {
             padding-top: 1.5rem;
             padding-bottom: 1.5rem;
         }
-
         .my-form .row {
             margin-left: 0;
             margin-right: 0;
         }
-
         .login-form {
             padding-top: 0;
             padding-bottom: 0;
             height: 100vh;
         }
-
         .login-form .row {
             margin-left: 0;
             margin-right: 0;
         }
-
         .card {
             width: 100%;
             max-width: 900px; /* Adjust max-width */
@@ -72,11 +89,14 @@
             border-radius: 20px;
             overflow: hidden;
         }
-
         .card-body {
             padding: 2rem;
         }
     </style>
+    
+    <!-- jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 </head>
 
 <body>

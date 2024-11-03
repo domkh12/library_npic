@@ -22,6 +22,10 @@ return new class extends Migration
             $table->foreign('year_id')->references('id')->on('year'); 
             $table->unsignedBigInteger('fac_id');
             $table->foreign('fac_id')->references('id')->on('faculty');                                     
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('user'); 
+            $table->unsignedBigInteger('gen_id')->nullable();
+            $table->foreign('gen_id')->references('id')->on('gender'); 
             $table->timestamps();
         });        
     }

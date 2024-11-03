@@ -65,11 +65,8 @@
         </form>
     </div>
     <div class="d-flex flex-wrap gap-2 mt-2 mt-md-0">
-        <a class="btn btn-outline-primary" href="{{ route('attendent.export') }}">
+        <a class="btn btn-primary" href="{{ route('attendent.export') }}">
             <i class="fa fa-file-excel"></i> ទាញយកជា excel
-        </a>
-        <a class="btn btn-primary" href="{{ route('attendent.scan') }}">
-            <i class="fa fa-barcode"></i> Scan Barcode
         </a>
     </div>
 </div>
